@@ -18,18 +18,17 @@ export const Footer: React.FC = () => {
     <footer className="bg-[#036C42] text-white pt-24 pb-8 relative overflow-hidden">
       {/* Decorative Background Element */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-white/[0.02] -skew-x-12 translate-x-20 pointer-events-none"></div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Top Section: Branding & Newsletter */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-20">
           <div className="lg:col-span-5">
             <div className="flex items-center gap-4 mb-8">
-              <div className="w-12 h-12 bg-[#47A4B5] rounded-xl flex items-center justify-center font-bold text-xl shadow-lg shadow-[#47A4B5]/20">H</div>
-              <h3 className="text-3xl font-serif font-bold tracking-tight">HEMPRO <span className="text-[#47A4B5] font-light">PUGLIA</span></h3>
+              <img src="/images/hempro-logo.png" alt="HEMPRO Logo" className="h-16 w-auto" />
             </div>
             <p className="text-white/50 text-base font-light leading-relaxed max-w-md mb-10">
-              Hemp Production, Characterization, and Valorisation of Innovative Products. 
+              Hemp Production, Characterization, and Valorisation of Innovative Products.
               La rete d'eccellenza per l'innovazione della filiera canapicola pugliese guidata dal CNR-ISPA.
             </p>
             <div className="flex gap-4">
@@ -48,16 +47,16 @@ export const Footer: React.FC = () => {
           <div className="lg:col-span-7 bg-white/5 p-10 rounded-[3rem] border border-white/10 backdrop-blur-sm">
             <h4 className="text-sm font-bold uppercase tracking-[0.3em] text-[#47A4B5] mb-4">Newsletter Scientifica</h4>
             <p className="text-white/60 text-sm font-light mb-8">Ricevi i risultati tecnici, i bandi regionali e gli aggiornamenti sulle innovazioni Novel Food.</p>
-            
+
             {!subscribed ? (
               <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4">
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="La tua email professionale" 
-                  className="flex-1 bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm outline-none focus:border-[#47A4B5] transition-colors" 
+                  placeholder="La tua email professionale"
+                  className="flex-1 bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm outline-none focus:border-[#47A4B5] transition-colors"
                 />
                 <button type="submit" className="bg-[#47A4B5] text-white px-8 py-4 rounded-2xl font-bold text-[10px] uppercase tracking-widest hover:bg-white hover:text-[#036C42] transition-all shadow-xl shadow-[#47A4B5]/10">
                   Iscriviti Ora
@@ -115,9 +114,9 @@ export const Footer: React.FC = () => {
           <div className="col-span-1">
             <h5 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 mb-8">Contatti</h5>
             <p className="text-white/60 text-sm font-light leading-relaxed">
-              CNR - ISPA Bari<br/>
-              Via G. Amendola, 122/O<br/>
-              70126 Bari (BA), IT<br/>
+              CNR - ISPA Bari<br />
+              Via G. Amendola, 122/O<br />
+              70126 Bari (BA), IT<br />
               <span className="text-[#47A4B5] font-bold mt-4 block">+39 080 5929357</span>
             </p>
           </div>
@@ -125,22 +124,22 @@ export const Footer: React.FC = () => {
 
         {/* Institutional Partners Section (Essential for EU/Regional Projects) */}
         <div className="py-12 flex flex-wrap justify-center items-center gap-12 lg:gap-24 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-1000">
-           <div className="text-center">
-             <div className="text-xs font-black uppercase tracking-tighter mb-2">Regione Puglia</div>
-             <div className="h-12 w-32 border border-white/20 rounded flex items-center justify-center bg-white/5">LOGO</div>
-           </div>
-           <div className="text-center">
-             <div className="text-xs font-black uppercase tracking-tighter mb-2">CNR - ISPA</div>
-             <div className="h-12 w-32 border border-white/20 rounded flex items-center justify-center bg-white/5">LOGO</div>
-           </div>
-           <div className="text-center">
-             <div className="text-xs font-black uppercase tracking-tighter mb-2">PSR Puglia</div>
-             <div className="h-12 w-32 border border-white/20 rounded flex items-center justify-center bg-white/5">LOGO</div>
-           </div>
-           <div className="text-center">
-             <div className="text-xs font-black uppercase tracking-tighter mb-2">Unione Europea</div>
-             <div className="h-12 w-32 border border-white/20 rounded flex items-center justify-center bg-white/5">LOGO</div>
-           </div>
+          <div className="text-center">
+            <div className="text-xs font-black uppercase tracking-tighter mb-2">Regione Puglia</div>
+            <div className="h-12 w-32 border border-white/20 rounded flex items-center justify-center bg-white/5">LOGO</div>
+          </div>
+          <div className="text-center">
+            <div className="text-xs font-black uppercase tracking-tighter mb-2">CNR - ISPA</div>
+            <div className="h-12 w-32 border border-white/20 rounded flex items-center justify-center bg-white/5">LOGO</div>
+          </div>
+          <div className="text-center">
+            <div className="text-xs font-black uppercase tracking-tighter mb-2">PSR Puglia</div>
+            <div className="h-12 w-32 border border-white/20 rounded flex items-center justify-center bg-white/5">LOGO</div>
+          </div>
+          <div className="text-center">
+            <div className="text-xs font-black uppercase tracking-tighter mb-2">Unione Europea</div>
+            <div className="h-12 w-32 border border-white/20 rounded flex items-center justify-center bg-white/5">LOGO</div>
+          </div>
         </div>
 
         {/* Bottom Bar */}
