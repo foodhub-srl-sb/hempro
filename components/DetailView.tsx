@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { ContentItem, ContentType } from '../types';
+import ReactMarkdown from 'react-markdown';
 
 interface DetailViewProps {
   item: ContentItem;
@@ -20,7 +21,7 @@ export const DetailView: React.FC<DetailViewProps> = ({ item, onBack }) => {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-16 animate-fade-in">
-      <button 
+      <button
         onClick={onBack}
         className="mb-12 flex items-center gap-3 text-gray-400 hover:text-[#036C42] transition-all duration-300 font-bold text-[11px] uppercase tracking-widest group"
       >
@@ -41,20 +42,20 @@ export const DetailView: React.FC<DetailViewProps> = ({ item, onBack }) => {
             <div className="w-full h-full bg-[#036C42] flex items-center justify-center">
               <div className="text-center p-10">
                 {item.type === ContentType.AUDIO ? (
-                   <div className="animate-pulse flex flex-col items-center">
-                      <div className="w-24 h-24 bg-[#47A4B5] rounded-full flex items-center justify-center mb-6 shadow-xl">
-                        <span className="text-4xl text-white">🎧</span>
-                      </div>
-                      <p className="text-white text-sm font-bold tracking-[0.2em] uppercase mb-2">Riproduzione Audio Hub...</p>
-                      <div className="flex gap-1 items-center h-8 mb-8">
-                         {[1,2,3,4,5,6,7,8].map(i => <div key={i} className="w-1.5 bg-[#47A4B5] rounded-full" style={{ height: `${Math.random()*100}%`, animation: `bounce 1s infinite ${i*0.1}s` }}></div>)}
-                      </div>
-                   </div>
+                  <div className="animate-pulse flex flex-col items-center">
+                    <div className="w-24 h-24 bg-[#47A4B5] rounded-full flex items-center justify-center mb-6 shadow-xl">
+                      <span className="text-4xl text-white">🎧</span>
+                    </div>
+                    <p className="text-white text-sm font-bold tracking-[0.2em] uppercase mb-2">Riproduzione Audio Hub...</p>
+                    <div className="flex gap-1 items-center h-8 mb-8">
+                      {[1, 2, 3, 4, 5, 6, 7, 8].map(i => <div key={i} className="w-1.5 bg-[#47A4B5] rounded-full" style={{ height: `${Math.random() * 100}%`, animation: `bounce 1s infinite ${i * 0.1}s` }}></div>)}
+                    </div>
+                  </div>
                 ) : (
                   <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#47A4B5] mx-auto mb-4"></div>
                 )}
                 <p className="text-white text-[10px] font-bold tracking-widest uppercase">Streaming Contenuto Formativo...</p>
-                <button 
+                <button
                   onClick={() => setIsPlaying(false)}
                   className="mt-8 text-white/50 hover:text-white text-[10px] uppercase font-bold tracking-widest underline"
                 >
@@ -78,19 +79,34 @@ export const DetailView: React.FC<DetailViewProps> = ({ item, onBack }) => {
             {item.title}
           </h1>
 
-          <div className="prose prose-xl max-w-none text-gray-700 leading-relaxed font-light whitespace-pre-wrap mb-16">
-            {item.fullContent || item.excerpt}
+
+
+          <div className="mb-16">
+            <ReactMarkdown
+              components={{
+                h1: ({ node, ...props }) => <h1 className="text-3xl font-serif font-bold text-[#036C42] mt-10 mb-6 leading-tight" {...props} />,
+                h2: ({ node, ...props }) => <h2 className="text-2xl font-serif font-bold text-gray-900 mt-12 mb-6 border-l-4 border-[#47A4B5] pl-4" {...props} />,
+                h3: ({ node, ...props }) => <h3 className="text-xl font-bold text-gray-800 mt-8 mb-4" {...props} />,
+                p: ({ node, ...props }) => <p className="text-gray-600 text-lg leading-relaxed font-light mb-6" {...props} />,
+                ul: ({ node, ...props }) => <ul className="list-disc list-outside ml-6 space-y-2 mb-8 text-gray-600" {...props} />,
+                li: ({ node, ...props }) => <li className="pl-2" {...props} />,
+                strong: ({ node, ...props }) => <strong className="font-bold text-gray-900" {...props} />,
+                blockquote: ({ node, ...props }) => <blockquote className="border-l-4 border-[#036C42]/20 pl-6 italic text-gray-500 my-8" {...props} />,
+              }}
+            >
+              {item.fullContent || item.excerpt}
+            </ReactMarkdown>
           </div>
 
           {(item.type === ContentType.VIDEO || item.type === ContentType.WEBINAR || item.type === ContentType.AUDIO) && !isPlaying && (
-            <div 
+            <div
               onClick={() => setIsPlaying(true)}
               className="mt-12 bg-[#036C42] rounded-[2.5rem] p-12 flex flex-col items-center justify-center min-h-[300px] text-white relative overflow-hidden group/vid cursor-pointer shadow-2xl border border-white/10"
             >
               <div className="absolute inset-0 bg-black/20 group-hover/vid:bg-black/40 transition-colors"></div>
               <div className="relative z-10 w-20 h-20 bg-white/10 backdrop-blur-xl rounded-full flex items-center justify-center border border-white/20 mb-6 group-hover/vid:scale-110 transition-transform duration-500">
                 {item.type === ContentType.AUDIO ? (
-                   <span className="text-3xl">🎧</span>
+                  <span className="text-3xl">🎧</span>
                 ) : (
                   <svg className="w-8 h-8 text-[#47A4B5]" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
@@ -108,17 +124,17 @@ export const DetailView: React.FC<DetailViewProps> = ({ item, onBack }) => {
           <div className="mt-20 pt-10 border-t border-gray-100 text-center">
             <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.3em] mb-6">Condividi questa risorsa</h4>
             <div className="flex justify-center gap-4">
-              <a 
-                href={socialLinks.linkedin} 
-                target="_blank" 
+              <a
+                href={socialLinks.linkedin}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 px-6 py-3 bg-[#0077b5] text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-[#005a8a] transition-all shadow-lg hover:shadow-[#0077b5]/20 hover:-translate-y-0.5"
               >
                 LinkedIn
               </a>
-              <a 
-                href={socialLinks.twitter} 
-                target="_blank" 
+              <a
+                href={socialLinks.twitter}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-3 px-6 py-3 bg-[#000000] text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-gray-800 transition-all shadow-lg hover:shadow-black/20 hover:-translate-y-0.5"
               >

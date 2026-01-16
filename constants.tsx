@@ -16,26 +16,56 @@ export const MOCK_CONTENT: ContentItem[] = [
     type: ContentType.SCIENTIFIC,
     title: 'Ottimizzazione dei Protocolli di Coltivazione in Sistemi Floating per Microgreens di Canapa',
     excerpt: 'Analisi tecnica avanzata sui parametri di crescita, spettri luminosi LED e accumulo di composti bioattivi in sistemi idroponici.',
-    fullContent: `INTRODUZIONE E OBIETTIVI SPERIMENTALI
-Il progetto HEMPRO, nell'ambito delle Azioni 2A e 2B, ha focalizzato la ricerca sulla produzione di microgreens di Cannabis sativa L. (varietà industriali certificate Fedora 17 e Felina 32). L'obiettivo primario è stato definire un protocollo di coltivazione standardizzato in sistemi "Floating System" (coltura idroponica a zattera galleggiante) in grado di massimizzare non solo la resa biomasse, ma soprattutto il profilo fitochimico del prodotto finale.
+    fullContent: `## 1. Introduzione e Obiettivi della Ricerca
+Il presente studio, condotto nell'ambito delle **Azioni 2A e 2B** del progetto HEMPRO, mira a definire un protocollo agronomico standardizzato per la produzione di microgreens di *Cannabis sativa* L. in ambiente controllato (Controlled Environment Agriculture - CEA). L'obiettivo primario è massimizzare la resa in biomassa fresca e il contenuto di metaboliti secondari bioattivi, ottimizzando i parametri del **sistema floating** (coltura idroponica su pannelli galleggianti).
 
-PARAMETRI DI COLTIVAZIONE E GESTIONE DEL SUBSTRATO
-La sperimentazione ha evidenziato che l'uso di un substrato inerte a base di torba neutra mista a perlite (rapporto 70:30) garantisce il miglior drenaggio basale, prevenendo fenomeni di asfissia radicale durante le prime fasi di emergenza. La densità di semina ottimale è stata individuata in 2.5 semi/cm², un valore che previene l'eccessivo ombreggiamento reciproco riducendo il rischio di attacchi di patogeni fungini come il Pythium spp.
+La coltivazione di microgreens sta emergendo come una strategia chiave per la diversificazione agricola, offrendo prodotti ad alto valore aggiunto nutrizionale ("Superfoods"). La canapa industriale, in particolare le varietà certificate monoiche, presenta un profilo fitochimico unico che richiede, tuttavia, una gestione meticolosa dei fattori abiotici per esprimere il suo pieno potenziale nutraceutico.
 
-GESTIONE DELLA SOLUZIONE NUTRITIVA
-Il controllo costante della soluzione nutritiva è il cuore del sistema floating. Per i microgreens di canapa, i dati raccolti indicano:
-- Conducibilità Elettrica (EC): Range ottimale tra 1.2 e 1.6 dS/m. Valori superiori causano stress osmotico riducendo la turgidità delle foglioline cotiledonari.
-- pH: Stabilizzato tra 5.8 e 6.2 per garantire la massima biodisponibilità di micronutrienti come Ferro e Manganese.
-- Rapporto N:K: Un apporto bilanciate di Azoto nitrico e Potassio (1:1.5) ha favorito uno sviluppo più robusto della parete cellulare.
+## 2. Materiali e Metodi
 
-INFLUENZA DELLO SPETTRO LUMINOSO LED
-L'utilizzo di sistemi di illuminazione a LED (Light Emitting Diodes) ha permesso di modulare la morfologia della pianta. Risultati chiave:
-1. Spettro Blue-Rich (450nm): Ha indotto un portamento più compatto e un aumento significativo del contenuto di clorofilla e flavonoidi totali.
-2. Spettro Red/Far-Red (660/730nm): Ha accelerato l'allungamento dell'ipocotile, facilitando le operazioni di taglio meccanico, ma con una riduzione della densità nutrizionale.
-Il protocollo HEMPRO suggerisce un fotoperiodo di 16 ore di luce con un'intensità di 250 µmol m⁻² s⁻¹ (PPFD).
+### 2.1 Genotipi e Substrati
+La sperimentazione ha confrontato due cultivar industriali certificate: **Fedora 17** e **Felina 32**.
+I substrati analizzati includono:
+*   **Torba bionda neutra**: Controllo standard.
+*   **Mix 70:30 (Torba:Perlite)**: Selezionato per il suo elevato *Air-Filled Porosity* (AFP).
+*   **Fibra di cocco**: Valutata per la sostenibilità ecologica.
 
-ANALISI DEI RISULTATI E CONCLUSIONI
-Le analisi biochimiche post-raccolta (effettuate al giorno 12 dalla semina) hanno mostrato un contenuto di vitamina E (tocoferoli) superiore del 30% rispetto alle colture tradizionali in suolo. La standardizzazione di questo processo permette alle aziende agricole pugliesi di immettere sul mercato un "superfood" con certificazione scientifica, riducendo al minimo l'uso di acqua grazie al ricircolo della soluzione nutritiva. Questo studio rappresenta un pilastro fondamentale per il trasferimento tecnologico verso i sistemi di agricoltura verticale indoor.`,
+La semina è stata effettuata ad una densità di **2.5 semi/cm²**, identificata come il *threshold* ottimale per evitare fenomeni di eziolatura da competizione luminosa e garantire un'adeguata circolazione d'aria al colletto, prevenendo attacchi di *Pythium spp.*.
+
+### 2.2 Gestione della Soluzione Nutritiva (NS)
+Il sistema floating richiede un monitoraggio costante dell'equilibrio ionico nella rizosfera. I parametri ottimali definiti sono:
+*   **Conducibilità Elettrica (EC)**: 1.4 ± 0.2 dS/m. Valori > 1.8 dS/m hanno indotto stress osmotico, con riduzione della turgidità cellulare.
+*   **pH**: Mantenuto nel range **5.8 - 6.0** per massimizzare la biodisponibilità di Fe, Mn e Zn.
+*   **Rapporto N:K**: Un rapporto 1:1.5 (Azoto Nitrico : Potassio) ha favorito la lignificazione dei tessuti e la resistenza meccanica dello stelo.
+
+### 2.3 Spettri Luminosi LED Supplementari
+L'illuminazione è stata fornita tramite moduli LED dimmerabili, applicando un fotoperiodo di 16h/8h e un PPFD di **250 µmol m⁻² s⁻¹**. Sono stati testati tre trattamenti spettrali:
+1.  **W (White)**: Spettro solare completo (Controllo).
+2.  **RB (Red/Blue 3:1)**: Picchi a 660nm e 450nm.
+3.  **RBF (Red/Blue/Far-Red)**: Aggiunta di radiazione a 730nm.
+
+## 3. Risultati Sperimentali e Discussione
+
+### 3.1 Cinetica di Germinazione e Biomassa
+La varietà **Felina 32** ha mostrato un'energia germinativa superiore (92% a 48h) su substrato Mix 70:30.
+L'analisi morfometrica al giorno 12 (raccolta) ha evidenziato che lo spettro **RBF** ha indotto un significativo allungamento dell'ipocotile (+24% rispetto a RB), facilitando le operazioni di raccolta meccanica. Tuttavia, lo spettro **RB** ha prodotto cotiledoni con maggiore area fogliare specifica (SLA) e spessore, indici di una maggiore efficienza fotosintetica.
+
+### 3.2 Profilo Fitochimico e Metaboliti Secondari
+Le analisi HPLC-DAD hanno rivelato differenze sostanziali nel contenuto di polifenoli totali e flavonoidi:
+*   La luce blu (450nm) ha stimolato la biosintesi di **antociani** e **flavonoidi**, agendo come fotorecettore per la via dei fenilpropanoidi.
+*   Il contenuto di **α-tocoferolo (Vitamina E)** nei microgreens coltivati sotto spettro RB è risultato superiore del **35%** rispetto al controllo in suolo.
+*   È stata osservata una correlazione positiva tra EC moderata (1.4 dS/m) e accumulo di composti antiossidanti, suggerendo una risposta adattativa di *eustress*.
+
+## 4. Conclusioni e Trasferimento Tecnologico
+
+Lo studio conferma che la **coltivazione idroponica in floating system** rappresenta il metodo più efficiente per la produzione massiva di microgreens di canapa, garantendo pulizia del prodotto e standardizzazione qualitativa.
+
+**Il protocollo HEMPRO raccomandato prevede:**
+*   Utilizzo di substrato Torba:Perlite (70:30).
+*   Nutrizione bilanciata con EC 1.4 dS/m e pH 5.8.
+*   Illuminazione LED con ricetta spettrale ottimizzata (Red/Blue con integrazione mirata di Far-Red in fase finale) per bilanciare resa biomassa e qualità nutraceutica.
+
+Questi risultati pongono le basi per l'implementazione su scala industriale presso i partner agricoli (Ortogourmet), aprendo nuove prospettive di mercato per la filiera corta pugliese.`,
     category: 'Idroponica',
     date: '15 Mag 2024',
     imageUrl: '/images/hemp_greenhouse.png',
