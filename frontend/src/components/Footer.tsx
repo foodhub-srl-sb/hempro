@@ -120,12 +120,17 @@ export function Footer() {
                     <div>
                         <h5 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 mb-8">Hub Stakeholder</h5>
                         <ul className="space-y-4">
-                            {['Aziende Agricole', 'Ricercatori', 'Trasformatori', 'Pubblica Amministrazione'].map(item => (
-                                <li key={item}>
-                                    <a href="#" className="text-white/60 hover:text-[#47A4B5] text-sm font-light transition-colors flex items-center gap-2 group">
+                            {[
+                                { label: 'Aziende Agricole', href: '/stakeholder/aziende-agricole' },
+                                { label: 'Ricercatori', href: '/stakeholder/ricercatori' },
+                                { label: 'Trasformatori', href: '/stakeholder/trasformatori' },
+                                { label: 'Pubblica Amministrazione', href: '/stakeholder/pubblica-amministrazione' },
+                            ].map(item => (
+                                <li key={item.label}>
+                                    <Link href={item.href} className="text-white/60 hover:text-[#47A4B5] text-sm font-light transition-colors flex items-center gap-2 group">
                                         <span className="w-1.5 h-1.5 rounded-full bg-[#47A4B5] opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                                        {item}
-                                    </a>
+                                        {item.label}
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
@@ -133,12 +138,17 @@ export function Footer() {
                     <div>
                         <h5 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 mb-8">Supporto</h5>
                         <ul className="space-y-4">
-                            {['Domande Frequenti', 'Supporto Tecnico', 'Privacy Policy', 'Cookie Policy'].map(item => (
-                                <li key={item}>
-                                    <a href="#" className="text-white/60 hover:text-[#47A4B5] text-sm font-light transition-colors flex items-center gap-2 group">
+                            {[
+                                { label: 'Domande Frequenti', href: '/faq' },
+                                { label: 'Supporto Tecnico', href: '/contatti' },
+                                { label: 'Privacy Policy', href: '/privacy-policy' },
+                                { label: 'Cookie Policy', href: '/cookie-policy' },
+                            ].map(item => (
+                                <li key={item.label}>
+                                    <Link href={item.href} className="text-white/60 hover:text-[#47A4B5] text-sm font-light transition-colors flex items-center gap-2 group">
                                         <span className="w-1.5 h-1.5 rounded-full bg-[#47A4B5] opacity-0 group-hover:opacity-100 transition-opacity"></span>
-                                        {item}
-                                    </a>
+                                        {item.label}
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
