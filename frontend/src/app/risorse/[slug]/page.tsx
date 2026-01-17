@@ -1,4 +1,4 @@
-import { getContentBySlug, getAllContent } from '@/lib/content';
+import { getContentBySlug } from '@/lib/content';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,13 +7,6 @@ import ReactMarkdown from 'react-markdown';
 
 interface Props {
     params: Promise<{ slug: string }>;
-}
-
-export async function generateStaticParams() {
-    const content = await getAllContent();
-    return content.map((item) => ({
-        slug: item.slug,
-    }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
