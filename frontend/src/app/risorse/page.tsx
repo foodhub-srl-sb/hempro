@@ -1,5 +1,5 @@
 import { getAllContent } from '@/lib/content';
-import { ContentCard } from '@/components/ContentCard';
+import { ResourceFilters } from '@/components/ResourceFilters';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -36,19 +36,9 @@ export default async function RisorsePage() {
                 </div>
             </section>
 
-            {/* Content Grid */}
+            {/* Content Section with Filters */}
             <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mb-12 flex flex-wrap gap-4">
-                    <span className="text-sm text-gray-500">
-                        {allContent.length} risorse disponibili
-                    </span>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                    {allContent.map((item) => (
-                        <ContentCard key={item.id} item={item} />
-                    ))}
-                </div>
+                <ResourceFilters items={allContent} />
             </section>
         </main>
     );
