@@ -27,6 +27,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
 }
 
+export const revalidate = 0;
+
 export default async function RisorsaDetailPage({ params }: Props) {
     const { slug } = await params;
     const item = await getContentBySlug(slug);

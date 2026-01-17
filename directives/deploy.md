@@ -64,10 +64,13 @@ git push origin main
 2. L'errore più comune è un import mancante o un errore TypeScript
 3. Correggere in locale, rifare push
 
-### Cache del Browser
+### Cache del Browser e Rendering
 Se le modifiche non appaiono:
-- Hard refresh: Ctrl+Shift+R (Windows) o Cmd+Shift+R (Mac)
-- Oppure aprire in finestra incognito
+- Le pagine Risorse e Home sono configurate come **Dinamiche** (`revalidate = 0`) per mostrare sempre i dati più recenti.
+- Se vedi ancora una lista vuota:
+    1. Controlla che le variabili d'ambiente in Vercel siano corrette.
+    2. Controlla i "Function Logs" in Vercel per eventuali errori di connessione.
+- Hard refresh: Ctrl+Shift+R
 
 ## Note
 - Vercel genera automaticamente preview per ogni PR

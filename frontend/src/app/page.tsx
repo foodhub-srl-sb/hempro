@@ -5,6 +5,8 @@ import { getFeaturedContent } from '@/lib/content';
 import Link from 'next/link';
 import Image from 'next/image';
 
+export const revalidate = 0; // Disable static caching for real-time updates
+
 export default async function HomePage() {
   const featuredContent = await getFeaturedContent(3);
 
