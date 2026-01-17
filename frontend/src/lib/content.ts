@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { createClient } from '@/utils/supabase/server';
 import { ContentItem, ContentType } from './types';
 
 // Helper to map DB row to ContentItem
@@ -20,6 +20,7 @@ function mapToContentItem(row: any): ContentItem {
 }
 
 export async function getAllContent(): Promise<ContentItem[]> {
+    const supabase = await createClient();
     const { data, error } = await supabase
         .from('contents')
         .select('*')
@@ -34,6 +35,7 @@ export async function getAllContent(): Promise<ContentItem[]> {
 }
 
 export async function getContentBySlug(slug: string): Promise<ContentItem | undefined> {
+    const supabase = await createClient();
     const { data, error } = await supabase
         .from('contents')
         .select('*')
@@ -49,6 +51,7 @@ export async function getContentBySlug(slug: string): Promise<ContentItem | unde
 }
 
 export async function getContentByType(type: ContentType): Promise<ContentItem[]> {
+    const supabase = await createClient();
     const { data, error } = await supabase
         .from('contents')
         .select('*')
@@ -64,6 +67,7 @@ export async function getContentByType(type: ContentType): Promise<ContentItem[]
 }
 
 export async function getFeaturedContent(count: number = 3): Promise<ContentItem[]> {
+    const supabase = await createClient();
     const { data, error } = await supabase
         .from('contents')
         .select('*')
@@ -80,6 +84,7 @@ export async function getFeaturedContent(count: number = 3): Promise<ContentItem
 
 // Kept for compatibility but should be replaced by real filters
 export async function getRelatedContent(currentSlug: string, count: number = 3): Promise<ContentItem[]> {
+    const supabase = await createClient();
     const { data, error } = await supabase
         .from('contents')
         .select('*')

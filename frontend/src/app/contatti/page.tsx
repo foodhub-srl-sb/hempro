@@ -2,7 +2,7 @@
 
 import { Metadata } from 'next';
 import { useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/client';
 
 const metadata: Metadata = {
     title: 'Contatti | HEMPRO Hub',
@@ -10,6 +10,7 @@ const metadata: Metadata = {
 };
 
 export default function ContattiPage() {
+    const supabase = createClient();
     const [formData, setFormData] = useState({
         name: '',
         email: '',

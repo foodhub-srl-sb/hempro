@@ -3,9 +3,10 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/client';
 
 export function Footer() {
+    const supabase = createClient();
     const [email, setEmail] = useState('');
     const [subscribed, setSubscribed] = useState(false);
 
