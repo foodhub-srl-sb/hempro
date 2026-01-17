@@ -1,51 +1,50 @@
-# Gestione Contenuti (Supabase)
+# Gestione Contenuti (Area Admin)
 
 ## Obiettivo
-Aggiungere, modificare o rimuovere contenuti dal sito HEMPRO utilizzando il database Supabase.
+Gestire gli articoli, le news e le risorse del sito HEMPRO utilizzando il pannello di amministrazione dedicato.
 
 ## Accesso
-Accedere alla dashboard del progetto HEMPRO su Supabase:
-[Dashboard Editor](https://supabase.com/dashboard/project/ttwcgihojnfehykjjxco/editor)
+1.  Navigare su `/admin` (es. `https://hempro.vercel.app/admin` o `http://localhost:3000/admin`).
+2.  Effettuare il login con le credenziali amministratore.
+3.  Cliccare su **"Contenuti"** nella barra laterale o nel dashboard.
 
-## Struttura Dati (`contents`)
-La tabella `contents` contiene tutti gli articoli, video, news e risorse.
+## Funzionalità
 
-### Campi Principali
-- **slug**: URL del contenuto (es. `nuovo-articolo`). Deve essere univoco.
-- **title**: Titolo visualizzato.
-- **excerpt**: Breve descrizione per le card.
-- **full_content**: Contenuto in formato **Markdown**.
-- **type**: `SCIENTIFIC` | `NEWS` | `EVENT` | `VIDEO` | `PODCAST`
-- **category**: Etichetta visuale (es. "Idroponica", "Bandi").
-- **image_url**: Link all'immagine di copertina (caricata nello Storage o link esterno).
-- **published_date**: Data di pubblicazione.
+### 1. Lista Contenuti
+La pagina `/admin/content` mostra tutti i contenuti presenti nel database.
+- **Colonne**: Titolo, Tipo, Categoria, Data.
+- **Azioni**: Modifica (pulsante a destra).
 
-## Procedura: Aggiungere Nuovo Contenuto
+### 2. Aggiungere Nuovo Contenuto
+1.  Cliccare sul pulsante verde **"Nuovo Contenuto"** in alto a destra.
+2.  Compilare il form:
+    - **Titolo**: Il titolo principale.
+    - **Slug**: L'URL univoco (es. `titolo-articolo`). **Importante**: usare solo minuscole e trattini.
+    - **Tipo**: Selezionare dal menu (NEWS, SCIENTIFIC, etc.).
+    - **Categoria**: Etichetta visuale (es. "Idroponica").
+    - **Estratto**: Breve descrizione (150-200 caratteri).
+    - **Contenuto Completo**: Testo in formato **Markdown**.
+    - **Immagine**: URL dell'immagine (vedi sezione Upload).
+3.  Cliccare **"Crea Contenuto"**.
 
-1.  **Caricare Immagine (Opzionale)**
-    - Andare su **Storage** > bucket `public` (se creato) o usare link esterni.
-    - Caricare l'immagine e copiare l'URL pubblico.
+### 3. Modificare Contenuto
+1.  Dalla lista, cliccare su **"Modifica"**.
+2.  Aggiornare i campi desiderati.
+3.  Cliccare **"Salva Modifiche"**.
 
-2.  **Inserire Riga in `contents`**
-    - Andare su **Table Editor** > `contents`.
-    - Cliccare **Insert** > **Insert Row**.
-    - Compilare i campi:
-        - `slug`: `titolo-articolo` (tutto minuscolo, niente spazi).
-        - `full_content`: Incollare il testo Markdown.
-        - `type`: Selezionare dal menu a tendina.
-    - Cliccare **Save**.
+### 4. Upload Immagini
+Attualmente il sistema richiede un URL pubblico per le immagini.
+**Opzione A: Supabase Storage (Consigliato)**
+1.  Caricare l'immagine nel bucket `public` di Supabase.
+2.  Copiare l'URL pubblico.
+3.  Incollarlo nel campo "URL Immagine".
 
-3.  **Verifica**
-    - Andare su `http://localhost:3000/risorse` (o sito live).
-    - Il nuovo contenuto apparirà automaticamente.
-    - Se è una "News" recente, apparirà anche in Homepage.
+**Opzione B: Immagine Esterna**
+1.  Usare un link diretto a un'immagine ospitata altrove.
 
-## Procedura: Modifica
-1.  Cercare la riga nella tabella.
-2.  Cliccare due volte sulla cella da modificare (es. `title`).
-3.  Salvare.
-
-## Aggiornamento Codice
-Non è più necessario modificare `frontend/src/lib/content.ts` o fare deploy per cambiare i testi, dato che il sito preleva i dati dal database ad ogni build (o richiesta).
-
-> **Nota**: Se il sito usa ISR o Static Generation, le modifiche potrebbero richiedere un nuovo deploy o attesa del periodo di revalidate. Nello stato attuale (default), è dinamico o statico al build time.
+## Markdown Cheat Sheet
+Il campo "Contenuto Completo" supporta Markdown:
+- `# Titolo 1`, `## Titolo 2` per le intestazioni.
+- `**Grassetto**`, `*Corsivo*`.
+- `- Lista puntata`.
+- `[Testo Link](https://esempio.com)`.

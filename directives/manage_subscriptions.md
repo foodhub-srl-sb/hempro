@@ -1,26 +1,28 @@
-# Gestire le Iscrizioni e Contatti
+# Gestione Iscrizioni e Contatti (Area Admin)
 
 ## Obiettivo
-Visualizzare e gestire le iscrizioni alla newsletter e le richieste di contatto in Supabase.
+Visualizzare le iscrizioni alla newsletter e i messaggi ricevuti dal sito.
 
-## Accesso ai Dati
-I dati sono salvati nel database Supabase del progetto **HEMPRO**.
+## Accesso
+1.  Navigare su `/admin`.
+2.  Effettuare il login.
 
-### Tabelle
-1.  `subscriptions`: Email iscritte alla newsletter.
-2.  `contacts`: Messaggi inviati dal form contatti.
+## Sezioni Disponibili
 
-## Dashboard Admin
-Accedere alla dashboard di Supabase per visualizzare i dati in tempo reale:
-[Vai alla Dashboard Supabase](https://supabase.com/dashboard/project/ttwcgihojnfehykjjxco/editor)
+### 1. Iscrizioni Newsletter
+Vai alla pagina **Iscrizioni** (o `/admin/submissions`).
+- Visualizza l'elenco di tutte le email iscritte tramite il footer del sito.
+- I dati sono ordinati dal più recente.
 
-## Esportazione Dati
-Dalla dashboard Supabase, è possibile esportare le tabelle in formato CSV:
-1.  Selezionare la tabella (es. `subscriptions`)
-2.  Cliccare su "CSV" nella barra degli strumenti
-3.  Scaricare il file
+### 2. Messaggi Contatti
+Vai alla pagina **Messaggi** (o `/admin/messages`).
+- Visualizza i messaggi inviati tramite la pagina `/contatti`.
+- **Status Indicators**:
+    - 🟡 **New**: Nuovi messaggi (non letti).
+    - ⚪ **Read**: Messaggi letti (Lo stato 'Read' sarà implementato in futuro, attualmente visualizza solo lo stato salvato nel DB).
 
-## Note Tecniche
-- Le tabelle hanno RLS (Row Level Security) abilitato.
-- L'inserimento è pubblico (da form web).
-- La lettura è riservata agli amministratori (via dashboard) o API autenticate.
+## Export Dati
+Per esportare questi dati in CSV (es. per Mailchimp):
+1.  Accedere direttamente alla [Dashboard Supabase](https://supabase.com/dashboard/project/ttwcgihojnfehykjjxco/editor).
+2.  Selezionare la tabella `subscriptions` o `contacts`.
+3.  Cliccare su "CSV" nella toolbar in alto.
