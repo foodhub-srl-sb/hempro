@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   authors: [{ name: "CNR-ISPA" }],
   icons: {
     icon: '/favicon.png',
+    shortcut: '/favicon.ico',
     apple: '/apple-icon.png',
   },
   openGraph: {
