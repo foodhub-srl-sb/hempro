@@ -58,8 +58,21 @@ const STAKEHOLDERS = {
     }
 };
 
-export async function generateMetadata({ params }: { params: { type: string } }) {
-    const data = STAKEHOLDERS[params.type as keyof typeof STAKEHOLDERS];
+type StakeholderType = keyof typeof STAKEHOLDERS;
+
+export function generateStaticParams() {
+    return Object.keys(STAKEHOLDERS).map((type) => ({
+        type: type,
+    }));
+}
+
+interface Props {
+    params: Promise<{ type: string }>;
+}
+
+export async function generateMetadata({ params }: Props) {
+    const { type } = await params;
+    const data = STAKEHOLDERS[type as StakeholderType];
     if (!data) return { title: 'Pagina Non Trovata' };
 
     return {
@@ -68,8 +81,9 @@ export async function generateMetadata({ params }: { params: { type: string } })
     };
 }
 
-export default function StakeholderPage({ params }: { params: { type: string } }) {
-    const data = STAKEHOLDERS[params.type as keyof typeof STAKEHOLDERS];
+export default async function StakeholderPage({ params }: Props) {
+    const { type } = await params;
+    const data = STAKEHOLDERS[type as StakeholderType];
 
     if (!data) {
         notFound();
