@@ -19,6 +19,10 @@ export const metadata: Metadata = {
   description: "Hemp Production, Characterization, and Valorisation of Innovative Products. La rete d'eccellenza per l'innovazione della filiera canapicola pugliese guidata dal CNR-ISPA.",
   keywords: ["canapa", "hemp", "CNR", "ISPA", "Puglia", "novel food", "microgreens", "agricoltura"],
   authors: [{ name: "CNR-ISPA" }],
+  icons: {
+    icon: '/favicon.png',
+    apple: '/apple-icon.png',
+  },
   openGraph: {
     title: "HEMPRO Hub | Innovazione Canapa Alimentare",
     description: "La rete d'eccellenza per l'innovazione della filiera canapicola pugliese",
