@@ -37,17 +37,17 @@ export default async function HomePage() {
               {
                 title: 'Aziende Agricole',
                 desc: 'Ottimizzazione dei sistemi produttivi fuori suolo e tecniche di coltivazione biologica.',
-                icon: '🚜',
+                iconSrc: '/images/icons/icon-tractor.png',
               },
               {
                 title: 'Ricerca & Sviluppo',
                 desc: 'Accesso ai report tecnici e dati biochimici del CNR-ISPA Bari per aziende R&D.',
-                icon: '🔬',
+                iconSrc: '/images/icons/icon-microscope.png',
               },
               {
                 title: 'Food Innovation',
                 desc: 'Sviluppo di meat-substitutes a base di canapa (Tempeh) e superfood funzionali.',
-                icon: '🍲',
+                iconSrc: '/images/icons/icon-pot.png',
               },
             ].map((path, i) => (
               <Link
@@ -55,8 +55,14 @@ export default async function HomePage() {
                 href="/risorse"
                 className="group relative bg-[#fbf9f4] p-12 rounded-[3.5rem] border border-gray-100 hover:bg-[#036C42] transition-all duration-700 cursor-pointer shadow-sm hover:shadow-2xl hover:-translate-y-2"
               >
-                <div className="text-5xl mb-10 group-hover:scale-110 transition-transform duration-500 inline-block">
-                  {path.icon}
+                <div className="mb-10 group-hover:scale-110 transition-transform duration-500 inline-block">
+                  <Image
+                    src={path.iconSrc}
+                    alt={path.title}
+                    width={80}
+                    height={80}
+                    className="w-20 h-20 object-contain"
+                  />
                 </div>
                 <h3 className="text-2xl font-serif font-bold text-[#036C42] group-hover:text-white mb-6 transition-colors">
                   {path.title}
