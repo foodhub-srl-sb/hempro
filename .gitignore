@@ -7,6 +7,13 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Temp files per architettura gemini.md
+.tmp/
+
+# Credentials OAuth (se usati)
+credentials.json
+token.json
+
 node_modules
 dist
 dist-ssr
