@@ -159,7 +159,14 @@ export default function ProgettoPage() {
                         <div className="grid grid-cols-2 gap-8">
                             <div className="pt-24">
                                 <div className="bg-white p-12 rounded-[3.5rem] shadow-2xl border border-gray-100 text-center group hover:-translate-y-4 transition-transform duration-500">
-                                    <div className="text-5xl mb-6">🌍</div>
+                                    <div className="relative w-20 h-20 mx-auto mb-6">
+                                        <Image
+                                            src="/images/icons/icon-earth.png"
+                                            alt="Impatto Locale"
+                                            fill
+                                            className="object-contain"
+                                        />
+                                    </div>
                                     <h5 className="text-[#036C42] font-serif font-bold text-xl mb-3">Impatto Locale</h5>
                                     <p className="text-gray-400 text-xs font-light leading-relaxed">
                                         Valorizziamo la biodiversità pugliese attraverso filiere sostenibili.
@@ -168,12 +175,26 @@ export default function ProgettoPage() {
                             </div>
                             <div className="space-y-8">
                                 <div className="bg-[#47A4B5] p-12 rounded-[3.5rem] shadow-2xl text-[#036C42] text-center group hover:-translate-y-4 transition-transform duration-500">
-                                    <div className="text-5xl mb-6">🌱</div>
+                                    <div className="relative w-20 h-20 mx-auto mb-6">
+                                        <Image
+                                            src="/images/icons/icon-sprout.png"
+                                            alt="Agro-Innovation"
+                                            fill
+                                            className="object-contain"
+                                        />
+                                    </div>
                                     <h5 className="font-serif font-bold text-xl mb-3">Agro-Innovation</h5>
                                     <p className="text-[#036C42]/60 text-xs font-bold uppercase tracking-widest">Protocolli Validati</p>
                                 </div>
                                 <div className="bg-white/5 p-12 rounded-[3.5rem] border border-white/10 backdrop-blur-xl text-center group hover:-translate-y-4 transition-transform duration-500">
-                                    <div className="text-5xl mb-6">⚡</div>
+                                    <div className="relative w-20 h-20 mx-auto mb-6">
+                                        <Image
+                                            src="/images/icons/icon-lightning.png"
+                                            alt="Digital Hub"
+                                            fill
+                                            className="object-contain"
+                                        />
+                                    </div>
                                     <h5 className="text-white font-serif font-bold text-xl mb-3">Digital Hub</h5>
                                     <p className="text-white/40 text-xs font-light">Trasferimento tecnologico istantaneo e globale.</p>
                                 </div>
