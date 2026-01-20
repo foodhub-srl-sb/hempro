@@ -170,7 +170,7 @@ export function Footer() {
                         <div className="text-xs font-black uppercase tracking-tighter mb-2 text-white/60">CNR - ISPA</div>
                         <div className="h-16 w-36 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center p-2 shadow-sm">
                             <Image
-                                src="/images/Partners/CNR-ISPA.jpg"
+                                src="/images/Partners/CNR-ISPA.png"
                                 alt="CNR-ISPA Logo"
                                 width={120}
                                 height={48}

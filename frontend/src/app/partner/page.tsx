@@ -13,7 +13,7 @@ const PARTNERS = [
         role: 'Soggetto Proponente & Coordinatore Scientifico',
         description:
             'Centro di eccellenza internazionale. Coordina la Parte A del progetto, gestisce la ricerca in laboratorio, la caratterizzazione chimico-nutrizionale e lo sviluppo dei protocolli biotecnologici.',
-        logo: '/images/Partners/CNR-ISPA.jpg',
+        logo: '/images/Partners/CNR-ISPA.png',
         color: 'bg-blue-50',
     },
     {
