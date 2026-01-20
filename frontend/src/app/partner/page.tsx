@@ -13,7 +13,7 @@ const PARTNERS = [
         role: 'Soggetto Proponente & Coordinatore Scientifico',
         description:
             'Centro di eccellenza internazionale. Coordina la Parte A del progetto, gestisce la ricerca in laboratorio, la caratterizzazione chimico-nutrizionale e lo sviluppo dei protocolli biotecnologici.',
-        icon: '🔬',
+        logo: '/images/Partners/CNR-ISPA.jpg',
         color: 'bg-blue-50',
     },
     {
@@ -22,7 +22,7 @@ const PARTNERS = [
         role: 'Partner Parte B - Produzione Prodotti Freschi',
         description:
             'Azienda specializzata in microgreens e baby leaf con impianti fuori suolo. Referente per la produzione pilota in serra e il trasferimento tecnologico.',
-        icon: '🌱',
+        logo: '/images/Partners/Ortogourmet.png',
         color: 'bg-green-50',
     },
     {
@@ -31,7 +31,7 @@ const PARTNERS = [
         role: 'Partner Parte B - Sementi e Trasformazione',
         description:
             'Esperto nella produzione e commercializzazione di sementi certificate. Referente per la produzione in campo e per la produzione pilota del tempeh.',
-        icon: '🚜',
+        logo: '/images/Partners/CANAPUGLIA.avif',
         color: 'bg-amber-50',
     },
     {
@@ -40,7 +40,7 @@ const PARTNERS = [
         role: 'Responsabile Divulgazione e Formazione',
         description:
             "Startup innovativa focalizzata sul trasferimento dell'innovazione nell'agrifood. Gestisce la comunicazione multicanale, i webinar e la community digitale.",
-        icon: '📢',
+        logo: '/images/Partners/Food Hub SRL SB.png',
         color: 'bg-purple-50',
     },
 ];
@@ -69,9 +69,15 @@ export default function PartnerPage() {
                         >
                             <div className="flex items-start gap-6">
                                 <div
-                                    className={`w-20 h-20 ${partner.color} rounded-2xl flex items-center justify-center text-4xl shadow-inner group-hover:scale-110 transition-transform`}
+                                    className={`w-20 h-20 ${partner.color} rounded-2xl flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform overflow-hidden p-2`}
                                 >
-                                    {partner.icon}
+                                    <Image
+                                        src={partner.logo}
+                                        alt={`${partner.name} Logo`}
+                                        width={60}
+                                        height={60}
+                                        className="object-contain max-h-14"
+                                    />
                                 </div>
                                 <div className="flex-1">
                                     <span className="text-[#47A4B5] text-[10px] font-bold uppercase tracking-widest block mb-2">

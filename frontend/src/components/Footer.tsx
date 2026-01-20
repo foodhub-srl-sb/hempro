@@ -165,22 +165,54 @@ export function Footer() {
                 </div>
 
                 {/* Institutional Partners Section */}
-                <div className="py-12 flex flex-wrap justify-center items-center gap-12 lg:gap-24 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-1000">
+                <div className="py-12 flex flex-wrap justify-center items-center gap-8 lg:gap-16">
                     <div className="text-center">
-                        <div className="text-xs font-black uppercase tracking-tighter mb-2">Regione Puglia</div>
-                        <div className="h-12 w-32 border border-white/20 rounded flex items-center justify-center bg-white/5">LOGO</div>
+                        <div className="text-xs font-black uppercase tracking-tighter mb-2 text-white/60">CNR - ISPA</div>
+                        <div className="h-16 w-36 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center p-2 shadow-sm">
+                            <Image
+                                src="/images/Partners/CNR-ISPA.jpg"
+                                alt="CNR-ISPA Logo"
+                                width={120}
+                                height={48}
+                                className="object-contain max-h-12"
+                            />
+                        </div>
                     </div>
                     <div className="text-center">
-                        <div className="text-xs font-black uppercase tracking-tighter mb-2">CNR - ISPA</div>
-                        <div className="h-12 w-32 border border-white/20 rounded flex items-center justify-center bg-white/5">LOGO</div>
+                        <div className="text-xs font-black uppercase tracking-tighter mb-2 text-white/60">Ortogourmet</div>
+                        <div className="h-16 w-36 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center p-2 shadow-sm">
+                            <Image
+                                src="/images/Partners/Ortogourmet.png"
+                                alt="Ortogourmet Logo"
+                                width={120}
+                                height={48}
+                                className="object-contain max-h-12"
+                            />
+                        </div>
                     </div>
                     <div className="text-center">
-                        <div className="text-xs font-black uppercase tracking-tighter mb-2">PSR Puglia</div>
-                        <div className="h-12 w-32 border border-white/20 rounded flex items-center justify-center bg-white/5">LOGO</div>
+                        <div className="text-xs font-black uppercase tracking-tighter mb-2 text-white/60">Fattorie Canapuglia</div>
+                        <div className="h-16 w-36 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center p-2 shadow-sm">
+                            <Image
+                                src="/images/Partners/CANAPUGLIA.avif"
+                                alt="Fattorie Canapuglia Logo"
+                                width={120}
+                                height={48}
+                                className="object-contain max-h-12"
+                            />
+                        </div>
                     </div>
                     <div className="text-center">
-                        <div className="text-xs font-black uppercase tracking-tighter mb-2">Unione Europea</div>
-                        <div className="h-12 w-32 border border-white/20 rounded flex items-center justify-center bg-white/5">LOGO</div>
+                        <div className="text-xs font-black uppercase tracking-tighter mb-2 text-white/60">Food Hub SRL SB</div>
+                        <div className="h-16 w-36 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center p-2 shadow-sm">
+                            <Image
+                                src="/images/Partners/Food Hub SRL SB.png"
+                                alt="Food Hub Logo"
+                                width={120}
+                                height={48}
+                                className="object-contain max-h-12"
+                            />
+                        </div>
                     </div>
                 </div>
 
