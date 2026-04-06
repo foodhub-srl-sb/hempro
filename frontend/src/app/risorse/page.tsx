@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     description: 'Esplora tutti i report tecnici, video, podcast e documenti scientifici del progetto HEMPRO.',
 };
 
-export const revalidate = 0;
+export const revalidate = 3600;
 
 export default async function RisorsePage() {
     const allContent = await getAllContent();

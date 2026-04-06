@@ -1,39 +1,31 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { createClient } from '@/utils/supabase/client';
+import { subscribeNewsletter } from '@/app/actions/newsletter';
 
 export function Footer() {
-    const supabase = createClient();
+    const [isPending, startTransition] = useTransition();
     const [email, setEmail] = useState('');
     const [subscribed, setSubscribed] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleSubscribe = async (e: React.FormEvent) => {
+    const handleSubscribe = (e: React.FormEvent) => {
         e.preventDefault();
-        if (email) {
-            try {
-                const { error } = await supabase
-                    .from('subscriptions')
-                    .insert([{ email }]);
+        setError(null);
 
-                if (error) {
-                    if (error.code === '23505') { // Unique violation
-                        alert('Questa email è già iscritta alla newsletter.');
-                        return;
-                    }
-                    throw error;
-                }
+        startTransition(async () => {
+            const result = await subscribeNewsletter({ email });
 
+            if (result.success) {
                 setSubscribed(true);
                 setEmail('');
                 setTimeout(() => setSubscribed(false), 5000);
-            } catch (error) {
-                console.error('Error subscribing to newsletter:', error);
-                alert('Errore durante l\'iscrizione. Riprova più tardi.');
+            } else {
+                setError(result.error ?? 'Errore sconosciuto.');
             }
-        }
+        });
     };
 
     return (
@@ -76,19 +68,30 @@ export function Footer() {
                         <p className="text-white/60 text-sm font-light mb-8">Ricevi i risultati tecnici, i bandi regionali e gli aggiornamenti sulle innovazioni Novel Food.</p>
 
                         {!subscribed ? (
-                            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4">
-                                <input
-                                    type="email"
-                                    required
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="La tua email professionale"
-                                    className="flex-1 bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm outline-none focus:border-[#47A4B5] transition-colors"
-                                />
-                                <button type="submit" className="bg-[#47A4B5] text-white px-8 py-4 rounded-2xl font-bold text-[10px] uppercase tracking-widest hover:bg-white hover:text-[#036C42] transition-all shadow-xl shadow-[#47A4B5]/10">
-                                    Iscriviti Ora
-                                </button>
-                            </form>
+                            <>
+                                {error && (
+                                    <div className="bg-white/10 border border-white/20 text-white/90 px-4 py-3 rounded-xl text-sm mb-4">
+                                        {error}
+                                    </div>
+                                )}
+                                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4">
+                                    <input
+                                        type="email"
+                                        required
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        placeholder="La tua email professionale"
+                                        className="flex-1 bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm outline-none focus:border-[#47A4B5] transition-colors"
+                                    />
+                                    <button
+                                        type="submit"
+                                        disabled={isPending}
+                                        className="bg-[#47A4B5] text-white px-8 py-4 rounded-2xl font-bold text-[10px] uppercase tracking-widest hover:bg-white hover:text-[#036C42] transition-all shadow-xl shadow-[#47A4B5]/10 disabled:opacity-70"
+                                    >
+                                        {isPending ? '...' : 'Iscriviti Ora'}
+                                    </button>
+                                </form>
+                            </>
                         ) : (
                             <div className="bg-[#47A4B5] text-[#036C42] p-6 rounded-2xl text-center animate-fade-in font-bold text-xs uppercase tracking-widest">
                                 ✓ Iscrizione completata con successo
@@ -169,49 +172,25 @@ export function Footer() {
                     <div className="text-center">
                         <div className="text-xs font-black uppercase tracking-tighter mb-2 text-white/60">CNR - ISPA</div>
                         <div className="h-16 w-36 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center p-2 shadow-sm">
-                            <Image
-                                src="/images/Partners/CNR-ISPA.png"
-                                alt="CNR-ISPA Logo"
-                                width={120}
-                                height={48}
-                                className="object-contain max-h-12"
-                            />
+                            <Image src="/images/Partners/CNR-ISPA.png" alt="CNR-ISPA Logo" width={120} height={48} className="object-contain max-h-12" />
                         </div>
                     </div>
                     <div className="text-center">
                         <div className="text-xs font-black uppercase tracking-tighter mb-2 text-white/60">Ortogourmet</div>
                         <div className="h-16 w-36 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center p-2 shadow-sm">
-                            <Image
-                                src="/images/Partners/Ortogourmet.png"
-                                alt="Ortogourmet Logo"
-                                width={120}
-                                height={48}
-                                className="object-contain max-h-12"
-                            />
+                            <Image src="/images/Partners/Ortogourmet.png" alt="Ortogourmet Logo" width={120} height={48} className="object-contain max-h-12" />
                         </div>
                     </div>
                     <div className="text-center">
                         <div className="text-xs font-black uppercase tracking-tighter mb-2 text-white/60">Fattorie Canapuglia</div>
                         <div className="h-16 w-36 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center p-2 shadow-sm">
-                            <Image
-                                src="/images/Partners/CANAPUGLIA.avif"
-                                alt="Fattorie Canapuglia Logo"
-                                width={120}
-                                height={48}
-                                className="object-contain max-h-12"
-                            />
+                            <Image src="/images/Partners/CANAPUGLIA.avif" alt="Fattorie Canapuglia Logo" width={120} height={48} className="object-contain max-h-12" />
                         </div>
                     </div>
                     <div className="text-center">
                         <div className="text-xs font-black uppercase tracking-tighter mb-2 text-white/60">Food Hub SRL SB</div>
                         <div className="h-16 w-36 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center p-2 shadow-sm">
-                            <Image
-                                src="/images/Partners/Food Hub SRL SB.png"
-                                alt="Food Hub Logo"
-                                width={120}
-                                height={48}
-                                className="object-contain max-h-12"
-                            />
+                            <Image src="/images/Partners/Food Hub SRL SB.png" alt="Food Hub Logo" width={120} height={48} className="object-contain max-h-12" />
                         </div>
                     </div>
                 </div>

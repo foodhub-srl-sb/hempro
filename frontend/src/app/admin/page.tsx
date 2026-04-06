@@ -83,7 +83,7 @@ export default async function AdminDashboard() {
                 </div>
                 {recentMessages && recentMessages.length > 0 ? (
                     <div className="divide-y divide-gray-100">
-                        {recentMessages.map((msg: any) => (
+                        {recentMessages.map((msg) => (
                             <div key={msg.id} className="p-6 hover:bg-gray-50 transition-all flex items-center justify-between">
                                 <div>
                                     <h4 className="font-bold text-gray-900">{msg.name}</h4>
