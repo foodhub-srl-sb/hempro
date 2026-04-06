@@ -1,8 +1,25 @@
 import { createClient } from '@/utils/supabase/server';
 import { ContentItem, ContentType } from './types';
 
+interface ContentRow {
+    id: string;
+    slug: string;
+    action_code: string | null;
+    type: string;
+    title: string;
+    excerpt: string | null;
+    full_content: string | null;
+    category: string;
+    published_date: string | null;
+    image_url: string | null;
+    author: string | null;
+    tags: string[] | null;
+    video_url: string | null;
+    audio_url: string | null;
+}
+
 // Helper to map DB row to ContentItem
-function mapToContentItem(row: any): ContentItem {
+function mapToContentItem(row: ContentRow): ContentItem {
     return {
         id: row.id,
         slug: row.slug,
