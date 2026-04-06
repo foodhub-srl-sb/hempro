@@ -1,13 +1,7 @@
 'use client';
 
-import { Metadata } from 'next';
 import { useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
-
-const metadata: Metadata = {
-    title: 'Contatti | HEMPRO Hub',
-    description: 'Contatta il team HEMPRO per informazioni sul progetto, collaborazioni e richieste.',
-};
 
 export default function ContattiPage() {
     const supabase = createClient();
