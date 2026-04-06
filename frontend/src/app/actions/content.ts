@@ -3,6 +3,7 @@
 import { z } from 'zod';
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 const ContentSchema = z.object({
     title: z.string().min(1, 'Il titolo è obbligatorio').max(500),
@@ -50,6 +51,9 @@ export async function saveContent(id: string | null, data: unknown): Promise<Con
             return { success: false, error: 'Errore durante il salvataggio.' };
         }
     }
+
+    // Invalidate ISR cache so public pages reflect the update immediately
+    revalidatePath('/', 'layout');
 
     redirect('/admin/content');
 }
