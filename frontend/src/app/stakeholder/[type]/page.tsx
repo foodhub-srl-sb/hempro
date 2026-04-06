@@ -14,7 +14,8 @@ const STAKEHOLDERS = {
             'Diversificazione del reddito aziendale'
         ],
         image: '/images/hero-bg.jpg', // Using existing asset or generic
-        cta: 'Partecipa ai Workshop'
+        cta: 'Partecipa ai Workshop',
+        ctaHref: '/contatti',
     },
     'ricercatori': {
         title: 'Ricercatori',
@@ -27,7 +28,8 @@ const STAKEHOLDERS = {
             'Networking con CNR-ISPA e partner internazionali'
         ],
         image: '/images/hero-bg.jpg',
-        cta: 'Consulta le Pubblicazioni'
+        cta: 'Consulta le Pubblicazioni',
+        ctaHref: '/risorse',
     },
     'trasformatori': {
         title: 'Trasformatori',
@@ -40,7 +42,8 @@ const STAKEHOLDERS = {
             'Accesso a materie prime tracciate e di qualità'
         ],
         image: '/images/hero-bg.jpg',
-        cta: 'Scopri i Prototipi'
+        cta: 'Scopri i Prototipi',
+        ctaHref: '/risorse',
     },
     'pubblica-amministrazione': {
         title: 'Pubblica Amministrazione',
@@ -53,7 +56,8 @@ const STAKEHOLDERS = {
             'Valorizzazione del marchio "Made in Puglia"'
         ],
         image: '/images/hero-bg.jpg',
-        cta: 'Leggi il Report'
+        cta: 'Leggi il Report',
+        ctaHref: '/risorse',
     }
 };
 
@@ -132,7 +136,7 @@ export default async function StakeholderPage({ params }: Props) {
                         </div>
 
                         <div className="mt-12 pt-12 border-t border-gray-100">
-                            <Link href="/contatti" className="inline-flex items-center gap-3 bg-[#036C42] text-white px-8 py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-[#025a36] transition-all group">
+                            <Link href={data.ctaHref} className="inline-flex items-center gap-3 bg-[#036C42] text-white px-8 py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-[#025a36] transition-all group">
                                 {data.cta}
                                 <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </Link>
