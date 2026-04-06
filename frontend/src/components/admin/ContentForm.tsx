@@ -1,15 +1,29 @@
 'use client';
 
-import { useState } from 'react';
-import { createClient } from '@/utils/supabase/client';
+import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
+import { saveContent } from '@/app/actions/content';
 
-export default function ContentForm({ initialData }: { initialData?: any }) {
+interface ContentData {
+    id?: string;
+    title?: string;
+    slug?: string;
+    excerpt?: string;
+    full_content?: string;
+    type?: string;
+    category?: string;
+    action_code?: string;
+    image_url?: string;
+    author?: string;
+    published_date?: string;
+    tags?: string[];
+}
+
+export default function ContentForm({ initialData }: { initialData?: ContentData }) {
     const router = useRouter();
-    const supabase = createClient();
+    const [isPending, startTransition] = useTransition();
     const isEditing = !!initialData?.id;
 
-    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         title: initialData?.title || '',
         slug: initialData?.slug || '',
@@ -21,49 +35,40 @@ export default function ContentForm({ initialData }: { initialData?: any }) {
         image_url: initialData?.image_url || '',
         author: initialData?.author || 'HEMPRO',
         published_date: initialData?.published_date || new Date().toISOString().split('T')[0],
-        tags: initialData?.tags?.join(', ') || ''
+        tags: initialData?.tags?.join(', ') || '',
     });
+    const [error, setError] = useState<string | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
+        setError(null);
 
-        const payload = {
-            ...formData,
-            tags: formData.tags.split(',').map((t: string) => t.trim()).filter((t: string) => t)
-        };
+        startTransition(async () => {
+            const result = await saveContent(initialData?.id ?? null, {
+                ...formData,
+                tags: formData.tags.split(',').map((t) => t.trim()).filter((t) => t),
+            });
 
-        try {
-            if (isEditing) {
-                const { error } = await supabase
-                    .from('contents')
-                    .update(payload)
-                    .eq('id', initialData.id);
-                if (error) throw error;
-            } else {
-                const { error } = await supabase
-                    .from('contents')
-                    .insert([payload]);
-                if (error) throw error;
+            if (result && !result.success) {
+                setError(result.error ?? 'Errore sconosciuto.');
             }
-
-            router.push('/admin/content');
-            router.refresh();
-        } catch (error) {
-            console.error('Error saving content:', error);
-            alert('Errore durante il salvataggio.');
-        } finally {
-            setLoading(false);
-        }
+            // On success, saveContent calls redirect() server-side
+        });
     };
 
     return (
         <form onSubmit={handleSubmit} className="space-y-6 max-w-4xl">
             <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 space-y-6">
+                {error && (
+                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
+                        {error}
+                    </div>
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="col-span-2">
                         <label className="block text-sm font-bold text-gray-700 mb-2">Titolo</label>
@@ -168,6 +173,7 @@ export default function ContentForm({ initialData }: { initialData?: any }) {
                             className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#47A4B5] focus:ring-2 focus:ring-[#47A4B5]/20 outline-none transition-all bg-gray-50"
                         />
                     </div>
+
                     <div>
                         <label className="block text-sm font-bold text-gray-700 mb-2">Data Pubblicazione</label>
                         <input
@@ -201,10 +207,10 @@ export default function ContentForm({ initialData }: { initialData?: any }) {
                     </button>
                     <button
                         type="submit"
-                        disabled={loading}
+                        disabled={isPending}
                         className="px-8 py-3 bg-[#036C42] text-white rounded-xl font-bold hover:bg-[#025a36] transition-all shadow-lg shadow-[#036C42]/20 disabled:opacity-70"
                     >
-                        {loading ? 'Salvataggio...' : (isEditing ? 'Salva Modifiche' : 'Crea Contenuto')}
+                        {isPending ? 'Salvataggio...' : (isEditing ? 'Salva Modifiche' : 'Crea Contenuto')}
                     </button>
                 </div>
             </div>

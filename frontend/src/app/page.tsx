@@ -5,7 +5,7 @@ import { getFeaturedContent } from '@/lib/content';
 import Link from 'next/link';
 import Image from 'next/image';
 
-export const revalidate = 0; // Disable static caching for real-time updates
+export const revalidate = 3600; // Revalidate every hour; content updates trigger revalidation via saveContent action
 
 export default async function HomePage() {
   const featuredContent = await getFeaturedContent(3);
@@ -38,21 +38,24 @@ export default async function HomePage() {
                 title: 'Aziende Agricole',
                 desc: 'Ottimizzazione dei sistemi produttivi fuori suolo e tecniche di coltivazione biologica.',
                 iconSrc: '/images/icons/icon-tractor.png',
+                href: '/stakeholder/aziende-agricole',
               },
               {
                 title: 'Ricerca & Sviluppo',
                 desc: 'Accesso ai report tecnici e dati biochimici del CNR-ISPA Bari per aziende R&D.',
                 iconSrc: '/images/icons/icon-microscope.png',
+                href: '/stakeholder/ricercatori',
               },
               {
                 title: 'Food Innovation',
                 desc: 'Sviluppo di meat-substitutes a base di canapa (Tempeh) e superfood funzionali.',
                 iconSrc: '/images/icons/icon-pot.png',
+                href: '/stakeholder/trasformatori',
               },
             ].map((path, i) => (
               <Link
                 key={i}
-                href="/risorse"
+                href={path.href}
                 className="group relative bg-[#fbf9f4] p-12 rounded-[3.5rem] border border-gray-100 hover:bg-[#036C42] transition-all duration-700 cursor-pointer shadow-sm hover:shadow-2xl hover:-translate-y-2"
               >
                 <div className="mb-10 group-hover:scale-110 transition-transform duration-500 inline-block">

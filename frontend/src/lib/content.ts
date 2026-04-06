@@ -1,8 +1,25 @@
 import { createClient } from '@/utils/supabase/server';
 import { ContentItem, ContentType } from './types';
 
+interface ContentRow {
+    id: string;
+    slug: string;
+    action_code: string | null;
+    type: string;
+    title: string;
+    excerpt: string | null;
+    full_content: string | null;
+    category: string;
+    published_date: string | null;
+    image_url: string | null;
+    author: string | null;
+    tags: string[] | null;
+    video_url: string | null;
+    audio_url: string | null;
+}
+
 // Helper to map DB row to ContentItem
-function mapToContentItem(row: any): ContentItem {
+function mapToContentItem(row: ContentRow): ContentItem {
     return {
         id: row.id,
         slug: row.slug,
@@ -13,7 +30,7 @@ function mapToContentItem(row: any): ContentItem {
         fullContent: row.full_content || '',
         category: row.category,
         date: row.published_date ? new Date(row.published_date).toLocaleDateString('it-IT', { day: '2-digit', month: 'short', year: 'numeric' }) : '',
-        imageUrl: row.image_url || '/images/placeholder.png',
+        imageUrl: row.image_url || '/images/hemp_research.png',
         author: row.author || 'HEMPRO',
         tags: row.tags || []
     };

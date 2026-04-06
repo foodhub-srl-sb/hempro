@@ -10,6 +10,12 @@ lerna-debug.log*
 # Temp files per architettura gemini.md
 .tmp/
 
+# Vite dev cache (legacy)
+.vite/
+
+# TypeScript build info
+*.tsbuildinfo
+
 # Credentials OAuth (se usati)
 credentials.json
 token.json

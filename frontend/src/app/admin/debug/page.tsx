@@ -18,9 +18,9 @@ export default async function DebugPage() {
         if (error) throw error;
         count = c;
         connectionStatus = 'Success';
-    } catch (e: any) {
+    } catch (e) {
         connectionStatus = 'Error';
-        errorMessage = e.message;
+        errorMessage = e instanceof Error ? e.message : 'Errore sconosciuto';
     }
 
     return (
@@ -61,7 +61,7 @@ export default async function DebugPage() {
                     {count !== null && (
                         <p className="text-green-700">
                             ✅ Successfully connected to database.<br />
-                            Found <strong>{count}</strong> rows in 'contents' table.
+                            Found <strong>{count}</strong> rows in &apos;contents&apos; table.
                         </p>
                     )}
                 </div>

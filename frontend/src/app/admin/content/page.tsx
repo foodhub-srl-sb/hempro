@@ -37,7 +37,7 @@ export default async function ContentListPage() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100">
-                            {contents?.map((item: any) => (
+                            {contents?.map((item) => (
                                 <tr key={item.id} className="hover:bg-gray-50 transition-all group">
                                     <td className="p-6">
                                         <div className="font-bold text-gray-900 group-hover:text-[#036C42] transition-colors">{item.title}</div>

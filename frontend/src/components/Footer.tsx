@@ -1,39 +1,32 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { createClient } from '@/utils/supabase/client';
+import { subscribeNewsletter } from '@/app/actions/newsletter';
 
 export function Footer() {
-    const supabase = createClient();
+    const [isPending, startTransition] = useTransition();
     const [email, setEmail] = useState('');
     const [subscribed, setSubscribed] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [gdprConsent, setGdprConsent] = useState(false);
 
-    const handleSubscribe = async (e: React.FormEvent) => {
+    const handleSubscribe = (e: React.FormEvent) => {
         e.preventDefault();
-        if (email) {
-            try {
-                const { error } = await supabase
-                    .from('subscriptions')
-                    .insert([{ email }]);
+        setError(null);
 
-                if (error) {
-                    if (error.code === '23505') { // Unique violation
-                        alert('Questa email è già iscritta alla newsletter.');
-                        return;
-                    }
-                    throw error;
-                }
+        startTransition(async () => {
+            const result = await subscribeNewsletter({ email });
 
+            if (result.success) {
                 setSubscribed(true);
                 setEmail('');
                 setTimeout(() => setSubscribed(false), 5000);
-            } catch (error) {
-                console.error('Error subscribing to newsletter:', error);
-                alert('Errore durante l\'iscrizione. Riprova più tardi.');
+            } else {
+                setError(result.error ?? 'Errore sconosciuto.');
             }
-        }
+        });
     };
 
     return (
@@ -54,21 +47,16 @@ export function Footer() {
                                 className="h-16 w-auto"
                             />
                         </div>
-                        <p className="text-white/50 text-base font-light leading-relaxed max-w-md mb-10">
+                        <p className="text-white/50 text-base font-light leading-relaxed max-w-md mb-6">
                             Hemp Production, Characterization, and Valorisation of Innovative Products.
                             La rete d&apos;eccellenza per l&apos;innovazione della filiera canapicola pugliese guidata dal CNR-ISPA.
                         </p>
-                        <div className="flex gap-4">
-                            <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-[#036C42] transition-all duration-300">
-                                <span className="text-[10px] font-bold">LN</span>
-                            </a>
-                            <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-[#036C42] transition-all duration-300">
-                                <span className="text-[10px] font-bold">YT</span>
-                            </a>
-                            <a href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-[#036C42] transition-all duration-300">
-                                <span className="text-[10px] font-bold">RG</span>
-                            </a>
-                        </div>
+                        <a
+                            href="mailto:info@hempropuglia.it"
+                            className="text-[#47A4B5] font-bold hover:underline text-sm"
+                        >
+                            info@hempropuglia.it
+                        </a>
                     </div>
 
                     <div className="lg:col-span-7 bg-white/5 p-10 rounded-[3rem] border border-white/10 backdrop-blur-sm">
@@ -76,19 +64,47 @@ export function Footer() {
                         <p className="text-white/60 text-sm font-light mb-8">Ricevi i risultati tecnici, i bandi regionali e gli aggiornamenti sulle innovazioni Novel Food.</p>
 
                         {!subscribed ? (
-                            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4">
-                                <input
-                                    type="email"
-                                    required
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="La tua email professionale"
-                                    className="flex-1 bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm outline-none focus:border-[#47A4B5] transition-colors"
-                                />
-                                <button type="submit" className="bg-[#47A4B5] text-white px-8 py-4 rounded-2xl font-bold text-[10px] uppercase tracking-widest hover:bg-white hover:text-[#036C42] transition-all shadow-xl shadow-[#47A4B5]/10">
-                                    Iscriviti Ora
-                                </button>
-                            </form>
+                            <>
+                                {error && (
+                                    <div className="bg-white/10 border border-white/20 text-white/90 px-4 py-3 rounded-xl text-sm mb-4">
+                                        {error}
+                                    </div>
+                                )}
+                                <form onSubmit={handleSubscribe} className="flex flex-col gap-4">
+                                    <div className="flex flex-col sm:flex-row gap-4">
+                                        <input
+                                            type="email"
+                                            required
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            placeholder="La tua email professionale"
+                                            className="flex-1 bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-sm outline-none focus:border-[#47A4B5] transition-colors"
+                                        />
+                                        <button
+                                            type="submit"
+                                            disabled={isPending || !gdprConsent}
+                                            className="bg-[#47A4B5] text-white px-8 py-4 rounded-2xl font-bold text-[10px] uppercase tracking-widest hover:bg-white hover:text-[#036C42] transition-all shadow-xl shadow-[#47A4B5]/10 disabled:opacity-70"
+                                        >
+                                            {isPending ? '...' : 'Iscriviti Ora'}
+                                        </button>
+                                    </div>
+                                    <label className="flex items-start gap-3 cursor-pointer text-white/60 text-xs font-light leading-relaxed">
+                                        <input
+                                            type="checkbox"
+                                            required
+                                            checked={gdprConsent}
+                                            onChange={(e) => setGdprConsent(e.target.checked)}
+                                            className="mt-0.5 flex-shrink-0 accent-[#47A4B5]"
+                                        />
+                                        <span>
+                                            Accetto il trattamento dei dati personali ai sensi del GDPR (Reg. UE 2016/679){' '}
+                                            <Link href="/privacy-policy" className="text-[#47A4B5] hover:underline">
+                                                (leggi la Privacy Policy)
+                                            </Link>
+                                        </span>
+                                    </label>
+                                </form>
+                            </>
                         ) : (
                             <div className="bg-[#47A4B5] text-[#036C42] p-6 rounded-2xl text-center animate-fade-in font-bold text-xs uppercase tracking-widest">
                                 ✓ Iscrizione completata con successo
@@ -160,6 +176,9 @@ export function Footer() {
                             Via G. Amendola, 122/O<br />
                             70126 Bari (BA), IT<br />
                             <span className="text-[#47A4B5] font-bold mt-4 block">+39 080 5929357</span>
+                            <a href="mailto:info@hempropuglia.it" className="text-[#47A4B5] font-bold hover:underline mt-2 block">
+                                info@hempropuglia.it
+                            </a>
                         </p>
                     </div>
                 </div>
@@ -169,49 +188,25 @@ export function Footer() {
                     <div className="text-center">
                         <div className="text-xs font-black uppercase tracking-tighter mb-2 text-white/60">CNR - ISPA</div>
                         <div className="h-16 w-36 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center p-2 shadow-sm">
-                            <Image
-                                src="/images/Partners/CNR-ISPA.png"
-                                alt="CNR-ISPA Logo"
-                                width={120}
-                                height={48}
-                                className="object-contain max-h-12"
-                            />
+                            <Image src="/images/Partners/CNR-ISPA.png" alt="CNR-ISPA Logo" width={120} height={48} className="object-contain max-h-12" />
                         </div>
                     </div>
                     <div className="text-center">
                         <div className="text-xs font-black uppercase tracking-tighter mb-2 text-white/60">Ortogourmet</div>
                         <div className="h-16 w-36 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center p-2 shadow-sm">
-                            <Image
-                                src="/images/Partners/Ortogourmet.png"
-                                alt="Ortogourmet Logo"
-                                width={120}
-                                height={48}
-                                className="object-contain max-h-12"
-                            />
+                            <Image src="/images/Partners/Ortogourmet.png" alt="Ortogourmet Logo" width={120} height={48} className="object-contain max-h-12" />
                         </div>
                     </div>
                     <div className="text-center">
                         <div className="text-xs font-black uppercase tracking-tighter mb-2 text-white/60">Fattorie Canapuglia</div>
                         <div className="h-16 w-36 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center p-2 shadow-sm">
-                            <Image
-                                src="/images/Partners/CANAPUGLIA.avif"
-                                alt="Fattorie Canapuglia Logo"
-                                width={120}
-                                height={48}
-                                className="object-contain max-h-12"
-                            />
+                            <Image src="/images/Partners/CANAPUGLIA.avif" alt="Fattorie Canapuglia Logo" width={120} height={48} className="object-contain max-h-12" />
                         </div>
                     </div>
                     <div className="text-center">
                         <div className="text-xs font-black uppercase tracking-tighter mb-2 text-white/60">Food Hub SRL SB</div>
                         <div className="h-16 w-36 bg-white/90 backdrop-blur-sm rounded-lg flex items-center justify-center p-2 shadow-sm">
-                            <Image
-                                src="/images/Partners/Food Hub SRL SB.png"
-                                alt="Food Hub Logo"
-                                width={120}
-                                height={48}
-                                className="object-contain max-h-12"
-                            />
+                            <Image src="/images/Partners/Food Hub SRL SB.png" alt="Food Hub Logo" width={120} height={48} className="object-contain max-h-12" />
                         </div>
                     </div>
                 </div>

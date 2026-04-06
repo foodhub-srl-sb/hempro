@@ -13,7 +13,7 @@ export default async function MessagesPage() {
             <h1 className="text-4xl font-serif font-bold text-[#036C42]">Messaggi Contatti</h1>
 
             <div className="space-y-4">
-                {messages?.map((msg: any) => (
+                {messages?.map((msg) => (
                     <div key={msg.id} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
                         <div className="flex justify-between items-start mb-4">
                             <div>

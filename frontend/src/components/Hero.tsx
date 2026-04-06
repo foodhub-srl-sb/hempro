@@ -2,12 +2,9 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export function Hero() {
-    const scrollToActions = () => {
-        document.getElementById('actions')?.scrollIntoView({ behavior: 'smooth' });
-    };
-
     return (
         <div className="relative bg-[#fbf9f4] overflow-hidden min-h-[90vh] flex items-center">
             {/* Background patterns */}
@@ -37,12 +34,12 @@ export function Hero() {
                     </p>
 
                     <div className="flex flex-wrap gap-8 items-center">
-                        <button
-                            onClick={scrollToActions}
+                        <Link
+                            href="/risorse"
                             className="bg-[#036C42] text-white px-12 py-5 rounded-2xl font-bold text-[10px] uppercase tracking-[0.4em] hover:bg-[#47A4B5] transition-all shadow-2xl shadow-[#036C42]/20 hover:shadow-[#47A4B5]/30 hover:-translate-y-1"
                         >
                             Scopri le Azioni
-                        </button>
+                        </Link>
                         <div className="flex items-center gap-6 border-l border-gray-200 pl-8">
                             <div className="flex -space-x-3">
                                 <div className="w-10 h-10 rounded-full border-2 border-white bg-gray-100 flex items-center justify-center text-[10px] font-bold">

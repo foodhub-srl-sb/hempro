@@ -1,16 +1,10 @@
 'use client';
 
-import { Metadata } from 'next';
-import { useState } from 'react';
-import { createClient } from '@/utils/supabase/client';
-
-const metadata: Metadata = {
-    title: 'Contatti | HEMPRO Hub',
-    description: 'Contatta il team HEMPRO per informazioni sul progetto, collaborazioni e richieste.',
-};
+import { useState, useTransition } from 'react';
+import { submitContact } from '@/app/actions/contact';
 
 export default function ContattiPage() {
-    const supabase = createClient();
+    const [isPending, startTransition] = useTransition();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -18,31 +12,28 @@ export default function ContattiPage() {
         message: '',
     });
     const [submitted, setSubmitted] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        setError(null);
 
-        try {
-            const { error } = await supabase
-                .from('contacts')
-                .insert([
-                    {
-                        name: formData.name,
-                        email: formData.email,
-                        organization: formData.organization,
-                        message: formData.message,
-                    }
-                ]);
+        startTransition(async () => {
+            const result = await submitContact({
+                name: formData.name,
+                email: formData.email,
+                organization: formData.organization || undefined,
+                message: formData.message,
+            });
 
-            if (error) throw error;
-
-            setSubmitted(true);
-            setFormData({ name: '', email: '', organization: '', message: '' });
-            setTimeout(() => setSubmitted(false), 5000);
-        } catch (error) {
-            console.error('Error submitting contact form:', error);
-            alert('Errore durante l\'invio del messaggio. Riprova più tardi.');
-        }
+            if (result.success) {
+                setSubmitted(true);
+                setFormData({ name: '', email: '', organization: '', message: '' });
+                setTimeout(() => setSubmitted(false), 5000);
+            } else {
+                setError(result.error ?? 'Errore sconosciuto.');
+            }
+        });
     };
 
     return (
@@ -81,7 +72,7 @@ export default function ContattiPage() {
                                 <div className="w-14 h-14 bg-[#036C42]/10 rounded-2xl flex items-center justify-center text-2xl">📞</div>
                                 <div>
                                     <h3 className="font-bold text-gray-900 mb-1">Telefono</h3>
-                                    <p className="text-[#47A4B5] font-bold">+39 080 5929357</p>
+                                    <a href="tel:+390805929357" className="text-[#47A4B5] font-bold hover:underline">+39 080 5929357</a>
                                 </div>
                             </div>
 
@@ -89,7 +80,7 @@ export default function ContattiPage() {
                                 <div className="w-14 h-14 bg-[#036C42]/10 rounded-2xl flex items-center justify-center text-2xl">✉️</div>
                                 <div>
                                     <h3 className="font-bold text-gray-900 mb-1">Email</h3>
-                                    <p className="text-[#47A4B5] font-bold">info@hempro.it</p>
+                                    <a href="mailto:info@hempropuglia.it" className="text-[#47A4B5] font-bold hover:underline">info@hempropuglia.it</a>
                                 </div>
                             </div>
                         </div>
@@ -107,6 +98,12 @@ export default function ContattiPage() {
                             </div>
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-6">
+                                {error && (
+                                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
+                                        {error}
+                                    </div>
+                                )}
+
                                 <div>
                                     <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">
                                         Nome e Cognome *
@@ -164,9 +161,10 @@ export default function ContattiPage() {
 
                                 <button
                                     type="submit"
-                                    className="w-full bg-[#036C42] text-white py-5 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-[#47A4B5] transition-all shadow-lg shadow-[#036C42]/20"
+                                    disabled={isPending}
+                                    className="w-full bg-[#036C42] text-white py-5 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-[#47A4B5] transition-all shadow-lg shadow-[#036C42]/20 disabled:opacity-70"
                                 >
-                                    Invia Messaggio
+                                    {isPending ? 'Invio in corso...' : 'Invia Messaggio'}
                                 </button>
                             </form>
                         )}
