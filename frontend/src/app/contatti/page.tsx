@@ -72,7 +72,7 @@ export default function ContattiPage() {
                                 <div className="w-14 h-14 bg-[#036C42]/10 rounded-2xl flex items-center justify-center text-2xl">📞</div>
                                 <div>
                                     <h3 className="font-bold text-gray-900 mb-1">Telefono</h3>
-                                    <p className="text-[#47A4B5] font-bold">+39 080 5929357</p>
+                                    <a href="tel:+390805929357" className="text-[#47A4B5] font-bold hover:underline">+39 080 5929357</a>
                                 </div>
                             </div>
 
@@ -80,7 +80,7 @@ export default function ContattiPage() {
                                 <div className="w-14 h-14 bg-[#036C42]/10 rounded-2xl flex items-center justify-center text-2xl">✉️</div>
                                 <div>
                                     <h3 className="font-bold text-gray-900 mb-1">Email</h3>
-                                    <p className="text-[#47A4B5] font-bold">info@hempro.it</p>
+                                    <a href="mailto:info@hempropuglia.it" className="text-[#47A4B5] font-bold hover:underline">info@hempropuglia.it</a>
                                 </div>
                             </div>
                         </div>

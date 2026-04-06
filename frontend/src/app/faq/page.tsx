@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { FAQAccordion } from './FAQAccordion';
 
 export const metadata: Metadata = {
     title: 'Domande Frequenti (FAQ) | HEMPRO Hub',
@@ -42,18 +43,7 @@ export default function FAQPage() {
                     <p className="text-gray-500 text-lg font-light">Tutto quello che devi sapere sul progetto di innovazione della filiera canapicola.</p>
                 </div>
 
-                <div className="space-y-6">
-                    {FAQS.map((faq, index) => (
-                        <div key={index} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 hover:border-[#47A4B5]/30 transition-colors">
-                            <h3 className="text-xl font-bold text-[#036C42] mb-4 flex items-start justify-between">
-                                {faq.q}
-                            </h3>
-                            <p className="text-gray-600 leading-relaxed font-light">
-                                {faq.a}
-                            </p>
-                        </div>
-                    ))}
-                </div>
+                <FAQAccordion faqs={FAQS} />
 
                 <div className="mt-16 text-center">
                     <p className="text-gray-500 mb-6">Non hai trovato la risposta che cercavi?</p>

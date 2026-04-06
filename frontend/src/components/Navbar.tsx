@@ -161,14 +161,6 @@ export function Navbar() {
                     >
                         Consulta Hub Tecnico
                     </Link>
-                    <div className="mt-12 flex justify-center gap-6">
-                        <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/40 hover:text-white hover:border-[#47A4B5] transition-all cursor-pointer">
-                            <span className="text-[10px] font-bold">LN</span>
-                        </div>
-                        <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/40 hover:text-white hover:border-[#47A4B5] transition-all cursor-pointer">
-                            <span className="text-[10px] font-bold">X</span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </nav>
