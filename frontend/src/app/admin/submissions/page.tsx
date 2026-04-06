@@ -21,7 +21,7 @@ export default async function SubscriptionsPage() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">
-                        {subs?.map((item: any) => (
+                        {subs?.map((item) => (
                             <tr key={item.id} className="hover:bg-gray-50 transition-all">
                                 <td className="p-6 text-gray-900 font-medium">
                                     {item.email}

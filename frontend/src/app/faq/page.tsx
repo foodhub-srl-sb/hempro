@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 export const metadata: Metadata = {
     title: 'Domande Frequenti (FAQ) | HEMPRO Hub',

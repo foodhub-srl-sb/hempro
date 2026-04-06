@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 
 export default function AdminLoginPage() {
     const [email, setEmail] = useState('');
@@ -30,7 +29,7 @@ export default function AdminLoginPage() {
                 router.push('/admin');
                 router.refresh();
             }
-        } catch (err) {
+        } catch {
             setError('An unexpected error occurred');
         } finally {
             setLoading(false);
