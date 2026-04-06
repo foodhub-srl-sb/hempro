@@ -4,10 +4,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        // Supabase Storage - aggiornare <project-ref> con il ref del nuovo progetto
-        // Trovato in: Supabase Dashboard > Settings > General > Reference ID
         protocol: "https",
-        hostname: "*.supabase.co",
+        hostname: "rtkpkcljcqbawpnpbqyy.supabase.co",
         pathname: "/storage/v1/object/public/**",
       },
     ],
