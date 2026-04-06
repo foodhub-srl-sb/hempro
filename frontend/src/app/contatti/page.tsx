@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { createClient } from '@/utils/supabase/client';
+import { useState, useTransition } from 'react';
+import { submitContact } from '@/app/actions/contact';
 
 export default function ContattiPage() {
-    const supabase = createClient();
+    const [isPending, startTransition] = useTransition();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -12,31 +12,28 @@ export default function ContattiPage() {
         message: '',
     });
     const [submitted, setSubmitted] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        setError(null);
 
-        try {
-            const { error } = await supabase
-                .from('contacts')
-                .insert([
-                    {
-                        name: formData.name,
-                        email: formData.email,
-                        organization: formData.organization,
-                        message: formData.message,
-                    }
-                ]);
+        startTransition(async () => {
+            const result = await submitContact({
+                name: formData.name,
+                email: formData.email,
+                organization: formData.organization || undefined,
+                message: formData.message,
+            });
 
-            if (error) throw error;
-
-            setSubmitted(true);
-            setFormData({ name: '', email: '', organization: '', message: '' });
-            setTimeout(() => setSubmitted(false), 5000);
-        } catch (error) {
-            console.error('Error submitting contact form:', error);
-            alert('Errore durante l\'invio del messaggio. Riprova più tardi.');
-        }
+            if (result.success) {
+                setSubmitted(true);
+                setFormData({ name: '', email: '', organization: '', message: '' });
+                setTimeout(() => setSubmitted(false), 5000);
+            } else {
+                setError(result.error ?? 'Errore sconosciuto.');
+            }
+        });
     };
 
     return (
@@ -101,6 +98,12 @@ export default function ContattiPage() {
                             </div>
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-6">
+                                {error && (
+                                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm">
+                                        {error}
+                                    </div>
+                                )}
+
                                 <div>
                                     <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">
                                         Nome e Cognome *
@@ -158,9 +161,10 @@ export default function ContattiPage() {
 
                                 <button
                                     type="submit"
-                                    className="w-full bg-[#036C42] text-white py-5 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-[#47A4B5] transition-all shadow-lg shadow-[#036C42]/20"
+                                    disabled={isPending}
+                                    className="w-full bg-[#036C42] text-white py-5 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-[#47A4B5] transition-all shadow-lg shadow-[#036C42]/20 disabled:opacity-70"
                                 >
-                                    Invia Messaggio
+                                    {isPending ? 'Invio in corso...' : 'Invia Messaggio'}
                                 </button>
                             </form>
                         )}
