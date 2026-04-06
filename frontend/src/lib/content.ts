@@ -30,7 +30,7 @@ function mapToContentItem(row: ContentRow): ContentItem {
         fullContent: row.full_content || '',
         category: row.category,
         date: row.published_date ? new Date(row.published_date).toLocaleDateString('it-IT', { day: '2-digit', month: 'short', year: 'numeric' }) : '',
-        imageUrl: row.image_url || '/images/placeholder.png',
+        imageUrl: row.image_url || '/images/hemp_research.png',
         author: row.author || 'HEMPRO',
         tags: row.tags || []
     };
