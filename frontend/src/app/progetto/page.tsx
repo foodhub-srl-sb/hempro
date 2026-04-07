@@ -26,7 +26,7 @@ const RESEARCH_AREAS = [
 
 const LEADERSHIP = [
     { name: 'CNR-ISPA', role: 'Coordinamento Scientifico', desc: 'Eccellenza nella ricerca agroalimentare e biotecnologica.', logo: '/images/Partners/CNR-ISPA.png' },
-    { name: 'Regione Puglia', role: 'Ente Finanziatore', desc: "Sostegno all'innovazione tramite la L.R. 21/2017.", logo: '/images/Partners/RegionePuglia.svg' },
+    { name: 'Regione Puglia', role: 'Ente Finanziatore', desc: "Sostegno all'innovazione tramite la L.R. 21/2017.", logo: '/images/Partners/RegionePuglia.png' },
 ];
 
 export default function ProgettoPage() {
