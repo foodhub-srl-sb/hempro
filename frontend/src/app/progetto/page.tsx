@@ -25,8 +25,8 @@ const RESEARCH_AREAS = [
 ];
 
 const LEADERSHIP = [
-    { name: 'CNR-ISPA', role: 'Coordinamento Scientifico', desc: 'Eccellenza nella ricerca agroalimentare e biotecnologica.' },
-    { name: 'Regione Puglia', role: 'Ente Finanziatore', desc: "Sostegno all'innovazione tramite la L.R. 21/2017." },
+    { name: 'CNR-ISPA', role: 'Coordinamento Scientifico', desc: 'Eccellenza nella ricerca agroalimentare e biotecnologica.', logo: '/images/Partners/CNR-ISPA.png' },
+    { name: 'Regione Puglia', role: 'Ente Finanziatore', desc: "Sostegno all'innovazione tramite la L.R. 21/2017.", logo: '/images/Partners/RegionePuglia.svg' },
 ];
 
 export default function ProgettoPage() {
@@ -143,8 +143,14 @@ export default function ProgettoPage() {
                                         key={i}
                                         className="flex gap-8 p-8 bg-white/5 border border-white/10 rounded-[2.5rem] hover:bg-white/10 transition-all group"
                                     >
-                                        <div className="w-12 h-12 rounded-2xl bg-[#47A4B5] flex items-center justify-center text-white font-serif font-bold group-hover:scale-110 transition-transform">
-                                            {item.name[0]}
+                                        <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0 overflow-hidden p-1">
+                                            <Image
+                                                src={item.logo}
+                                                alt={item.name}
+                                                width={48}
+                                                height={48}
+                                                className="object-contain w-full h-full"
+                                            />
                                         </div>
                                         <div>
                                             <h4 className="text-white font-bold mb-1">{item.name}</h4>
