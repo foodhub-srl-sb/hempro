@@ -60,3 +60,25 @@ export async function saveContent(id: string | null, data: unknown): Promise<Con
 
     redirect('/admin/content');
 }
+
+export async function toggleContentPublished(id: string, currentlyPublished: boolean): Promise<ContentFormState> {
+    const supabase = await createClient();
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return { success: false, error: 'Non autorizzato.' };
+
+    const { error } = await supabase
+        .from('contents')
+        .update({ published: !currentlyPublished })
+        .eq('id', id);
+
+    if (error) {
+        console.error('Toggle published error:', error);
+        return { success: false, error: 'Errore durante l\'aggiornamento.' };
+    }
+
+    revalidatePath('/', 'layout');
+    revalidatePath('/risorse');
+
+    return { success: true };
+}

@@ -16,6 +16,7 @@ interface ContentRow {
     tags: string[] | null;
     video_url: string | null;
     audio_url: string | null;
+    published: boolean;
 }
 
 // Helper to map DB row to ContentItem
@@ -42,6 +43,7 @@ export async function getAllContent(): Promise<ContentItem[]> {
     const { data, error } = await supabase
         .from('contents')
         .select('*')
+        .eq('published', true)
         .order('published_date', { ascending: false });
 
     if (error) {
@@ -58,6 +60,7 @@ export async function getContentBySlug(slug: string): Promise<ContentItem | unde
         .from('contents')
         .select('*')
         .eq('slug', slug)
+        .eq('published', true)
         .single();
 
     if (error) {
@@ -74,6 +77,7 @@ export async function getContentByType(type: ContentType): Promise<ContentItem[]
         .from('contents')
         .select('*')
         .eq('type', type)
+        .eq('published', true)
         .order('published_date', { ascending: false });
 
     if (error) {
@@ -89,6 +93,7 @@ export async function getFeaturedContent(count: number = 3): Promise<ContentItem
     const { data, error } = await supabase
         .from('contents')
         .select('*')
+        .eq('published', true)
         .order('published_date', { ascending: false })
         .limit(count);
 

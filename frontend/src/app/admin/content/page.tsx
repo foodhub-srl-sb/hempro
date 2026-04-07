@@ -1,6 +1,7 @@
 
 import { createClient } from '@/utils/supabase/server';
 import Link from 'next/link';
+import { TogglePublishedButton } from '@/components/admin/TogglePublishedButton';
 
 export default async function ContentListPage() {
     const supabase = await createClient();
@@ -33,12 +34,13 @@ export default async function ContentListPage() {
                                 <th className="p-6 font-bold text-gray-500 text-xs uppercase tracking-wider">Tipo</th>
                                 <th className="p-6 font-bold text-gray-500 text-xs uppercase tracking-wider">Categoria</th>
                                 <th className="p-6 font-bold text-gray-500 text-xs uppercase tracking-wider">Data</th>
+                                <th className="p-6 font-bold text-gray-500 text-xs uppercase tracking-wider">Stato</th>
                                 <th className="p-6 font-bold text-gray-500 text-xs uppercase tracking-wider text-right">Azioni</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100">
                             {contents?.map((item) => (
-                                <tr key={item.id} className="hover:bg-gray-50 transition-all group">
+                                <tr key={item.id} className={`hover:bg-gray-50 transition-all group ${item.published === false ? 'opacity-50' : ''}`}>
                                     <td className="p-6">
                                         <div className="font-bold text-gray-900 group-hover:text-[#036C42] transition-colors">{item.title}</div>
                                         <div className="text-xs text-gray-400 mt-1">{item.slug}</div>
@@ -54,19 +56,34 @@ export default async function ContentListPage() {
                                     <td className="p-6 text-sm text-gray-500">
                                         {item.published_date ? new Date(item.published_date).toLocaleDateString() : '-'}
                                     </td>
+                                    <td className="p-6">
+                                        <span className={`text-xs font-bold px-2 py-1 rounded-full ${
+                                            item.published === false
+                                                ? 'bg-gray-100 text-gray-400'
+                                                : 'bg-green-50 text-green-700'
+                                        }`}>
+                                            {item.published === false ? 'Nascosto' : 'Visibile'}
+                                        </span>
+                                    </td>
                                     <td className="p-6 text-right">
-                                        <Link
-                                            href={`/admin/content/${item.id}`}
-                                            className="text-[#47A4B5] font-bold hover:text-[#388a99] transition-colors"
-                                        >
-                                            Modifica
-                                        </Link>
+                                        <div className="flex items-center justify-end gap-3">
+                                            <TogglePublishedButton
+                                                id={item.id}
+                                                published={item.published !== false}
+                                            />
+                                            <Link
+                                                href={`/admin/content/${item.id}`}
+                                                className="text-[#47A4B5] font-bold hover:text-[#388a99] transition-colors text-sm"
+                                            >
+                                                Modifica
+                                            </Link>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
                             {(!contents || contents.length === 0) && (
                                 <tr>
-                                    <td colSpan={5} className="p-12 text-center text-gray-500">
+                                    <td colSpan={6} className="p-12 text-center text-gray-500">
                                         Nessun contenuto trovato. Crea il primo!
                                     </td>
                                 </tr>
