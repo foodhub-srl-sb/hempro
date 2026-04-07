@@ -9,9 +9,12 @@ function getEmbedUrl(url: string): string | null {
     // YouTube
     const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
     if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}`;
-    // Vimeo
-    const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
-    if (vimeoMatch) return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+    // Vimeo (supporta video privati con hash: vimeo.com/ID/HASH)
+    const vimeoMatch = url.match(/vimeo\.com\/(\d+)(?:\/([a-f0-9]+))?/);
+    if (vimeoMatch) {
+        const embedUrl = `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+        return vimeoMatch[2] ? `${embedUrl}?h=${vimeoMatch[2]}` : embedUrl;
+    }
     // Already an embed or direct video URL
     return url;
 }
