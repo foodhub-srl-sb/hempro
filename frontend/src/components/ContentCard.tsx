@@ -12,11 +12,10 @@ interface Props {
 export const ContentCard: React.FC<Props> = memo(({ item }) => {
     const getIcon = () => {
         switch (item.type) {
-            case ContentType.BLOG: return '📜';
             case ContentType.VIDEO: return '🎥';
-            case ContentType.WEBINAR: return '🎤';
             case ContentType.SCIENTIFIC: return '🔬';
-            case ContentType.AUDIO: return '🎧';
+            case ContentType.PODCAST: return '🎧';
+            case ContentType.EVENT: return '🎤';
             case ContentType.NEWS: return '⚡';
             default: return '📄';
         }
@@ -24,7 +23,7 @@ export const ContentCard: React.FC<Props> = memo(({ item }) => {
 
     const getTypeColor = () => {
         switch (item.type) {
-            case ContentType.AUDIO: return 'bg-purple-600';
+            case ContentType.PODCAST: return 'bg-purple-600';
             case ContentType.NEWS: return 'bg-amber-500';
             default: return 'bg-[#036C42]';
         }
