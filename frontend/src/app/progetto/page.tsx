@@ -144,11 +144,10 @@ export default function ProgettoPage() {
                                         className="flex gap-8 p-8 bg-white/5 border border-white/10 rounded-[2.5rem] hover:bg-white/10 transition-all group"
                                     >
                                         <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center group-hover:scale-110 transition-transform flex-shrink-0 overflow-hidden p-1">
-                                            <Image
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                            <img
                                                 src={item.logo}
                                                 alt={item.name}
-                                                width={48}
-                                                height={48}
                                                 className="object-contain w-full h-full"
                                             />
                                         </div>
