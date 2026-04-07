@@ -5,6 +5,17 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import ReactMarkdown from 'react-markdown';
 
+function getEmbedUrl(url: string): string | null {
+    // YouTube
+    const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+    if (ytMatch) return `https://www.youtube.com/embed/${ytMatch[1]}`;
+    // Vimeo
+    const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+    if (vimeoMatch) return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+    // Already an embed or direct video URL
+    return url;
+}
+
 interface Props {
     params: Promise<{ slug: string }>;
 }
@@ -82,6 +93,31 @@ export default async function RisorsaDetailPage({ params }: Props) {
                             <p className="text-sm text-gray-400">Autore</p>
                         </div>
                     </div>
+
+                    {/* Video Player */}
+                    {item.videoUrl && (
+                        <div className="mb-12">
+                            {getEmbedUrl(item.videoUrl)?.match(/\.(mp4|webm|ogg)$/i) ? (
+                                <video
+                                    controls
+                                    className="w-full rounded-2xl shadow-lg"
+                                    src={item.videoUrl}
+                                >
+                                    Il tuo browser non supporta il tag video.
+                                </video>
+                            ) : (
+                                <div className="relative w-full rounded-2xl overflow-hidden shadow-lg" style={{ paddingBottom: '56.25%' }}>
+                                    <iframe
+                                        src={getEmbedUrl(item.videoUrl) ?? ''}
+                                        title={item.title}
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        className="absolute inset-0 w-full h-full"
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    )}
 
                     {/* Content */}
                     <div className="prose prose-lg max-w-none">

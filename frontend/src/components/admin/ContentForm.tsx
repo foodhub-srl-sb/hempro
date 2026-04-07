@@ -14,6 +14,7 @@ interface ContentData {
     category?: string;
     action_code?: string;
     image_url?: string;
+    video_url?: string;
     author?: string;
     published_date?: string;
     tags?: string[];
@@ -33,6 +34,7 @@ export default function ContentForm({ initialData }: { initialData?: ContentData
         category: initialData?.category || '',
         action_code: initialData?.action_code || 'NEWS',
         image_url: initialData?.image_url || '',
+        video_url: initialData?.video_url || '',
         author: initialData?.author || 'HEMPRO',
         published_date: initialData?.published_date || new Date().toISOString().split('T')[0],
         tags: initialData?.tags?.join(', ') || '',
@@ -50,6 +52,7 @@ export default function ContentForm({ initialData }: { initialData?: ContentData
         startTransition(async () => {
             const result = await saveContent(initialData?.id ?? null, {
                 ...formData,
+                video_url: formData.video_url || undefined,
                 tags: formData.tags.split(',').map((t) => t.trim()).filter((t) => t),
             });
 
@@ -159,7 +162,21 @@ export default function ContentForm({ initialData }: { initialData?: ContentData
                             name="image_url"
                             value={formData.image_url}
                             onChange={handleChange}
-                            placeholder="/images/..."
+                            placeholder="/images/... oppure URL Supabase Storage"
+                            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#47A4B5] focus:ring-2 focus:ring-[#47A4B5]/20 outline-none transition-all bg-gray-50"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-bold text-gray-700 mb-2">
+                            URL Video
+                            <span className="ml-2 text-xs font-normal text-gray-400">(YouTube, Vimeo o link diretto)</span>
+                        </label>
+                        <input
+                            name="video_url"
+                            value={formData.video_url}
+                            onChange={handleChange}
+                            placeholder="https://www.youtube.com/watch?v=..."
                             className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#47A4B5] focus:ring-2 focus:ring-[#47A4B5]/20 outline-none transition-all bg-gray-50"
                         />
                     </div>

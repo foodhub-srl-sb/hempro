@@ -18,6 +18,7 @@ const ContentSchema = z.object({
     category: z.string().min(1, 'La categoria è obbligatoria').max(200),
     action_code: z.string().max(100).optional(),
     image_url: z.string().max(500).optional(),
+    video_url: z.string().url('Inserisci un URL video valido').max(500).optional().or(z.literal('')),
     author: z.string().max(200).optional(),
     published_date: z.string().optional(),
     tags: z.array(z.string()).optional(),
