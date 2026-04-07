@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -86,6 +87,7 @@ export default async function RisorsaDetailPage({ params }: Props) {
                     {/* Content */}
                     <div className="prose prose-lg max-w-none">
                         <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
                             components={{
                                 h1: ({ ...props }) => <h1 className="text-3xl font-serif font-bold text-[#036C42] mt-10 mb-6 leading-tight" {...props} />,
                                 h2: ({ ...props }) => <h2 className="text-2xl font-serif font-bold text-gray-900 mt-12 mb-6 border-l-4 border-[#47A4B5] pl-4" {...props} />,
@@ -95,6 +97,11 @@ export default async function RisorsaDetailPage({ params }: Props) {
                                 li: ({ ...props }) => <li className="pl-2" {...props} />,
                                 strong: ({ ...props }) => <strong className="font-bold text-gray-900" {...props} />,
                                 blockquote: ({ ...props }) => <blockquote className="border-l-4 border-[#036C42]/20 pl-6 italic text-gray-500 my-8" {...props} />,
+                                table: ({ ...props }) => <div className="overflow-x-auto my-8"><table className="w-full border-collapse text-sm" {...props} /></div>,
+                                thead: ({ ...props }) => <thead className="bg-[#036C42] text-white" {...props} />,
+                                th: ({ ...props }) => <th className="px-4 py-3 text-left font-bold text-xs uppercase tracking-widest" {...props} />,
+                                td: ({ ...props }) => <td className="px-4 py-3 border-b border-gray-100 text-gray-600" {...props} />,
+                                tr: ({ ...props }) => <tr className="even:bg-gray-50 hover:bg-[#47A4B5]/5 transition-colors" {...props} />,
                             }}
                         >
                             {item.fullContent || item.excerpt}
