@@ -55,6 +55,8 @@ export async function saveContent(id: string | null, data: unknown): Promise<Con
 
     // Invalidate ISR cache so public pages reflect the update immediately
     revalidatePath('/', 'layout');
+    revalidatePath('/risorse');
+    revalidatePath('/risorse/[slug]', 'page');
 
     redirect('/admin/content');
 }

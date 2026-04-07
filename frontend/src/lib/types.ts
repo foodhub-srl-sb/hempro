@@ -1,11 +1,10 @@
-// Types for content items
+// Types for content items — values must match the DB ENUM exactly
 export enum ContentType {
-    BLOG = 'DOCUMENTO',
+    NEWS = 'NEWS',
+    SCIENTIFIC = 'SCIENTIFIC',
+    EVENT = 'EVENT',
     VIDEO = 'VIDEO',
-    WEBINAR = 'WEBINAR',
-    SCIENTIFIC = 'RICERCA',
-    AUDIO = 'AUDIO/PODCAST',
-    NEWS = 'NEWS FLASH'
+    PODCAST = 'PODCAST',
 }
 
 export interface ContentItem {
